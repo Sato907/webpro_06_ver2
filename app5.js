@@ -1,10 +1,13 @@
 //更新前
+const { name } = require("ejs");
 const express = require("express");
 const app = express();
 
 app.set('view engine', 'ejs');
-app.use("/public", express.static(__dirname + "/public"));
+//0app.use("/public", express.static(__dirname + "/public"));
+app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
+
 
 
 let station = [
@@ -28,21 +31,43 @@ let station2 = [
 
 // 期末課題
 
-let end = [
-  {char:"苗木誠", title:"超高校級の幸運",birth:"１月1日",cast:"緒方恵美",end:"生還"}
+let nietzsche = [
+  { name:"フリードリヒ・ニーチェ", birth:1844, death:1900,intro:"概要だよ",thought:"実存主義",book:"ツァラトゥストラ",story:1},
+  { name:"ニーチェ", birth:1844, death:1900,intro:"概要だよ",thought:"実存主義",book:"ツァラトゥストラ",story:1},
+  
 ];
 
-app.get("/dangan", (req, res) => {
+
+
+// 一覧
+app.get("/manga", (req, res) => {
   // 本来ならここにDBとのやり取りが入る
-  res.render('dangan', {data: end} );
+  res.render('manga', {data: nietzsche} );
 });
 
-app.get("/dangan/:number", (req, res) => {
+// Read　詳細表示
+app.get("/manga/:number", (req, res) => {
   // 本来ならここにDBとのやり取りが入る
   const number = req.params.number;
-  const detail = dangan[ number ];
-  res.render('keiyo2_detail', {data: detail} );
+  const detail = nietzsche[ number ];
+  res.render('manga_detail', {name: number, data: detail} );
 });
+
+// Create　
+app.post("/manga", (req, res) => {
+  // 本来ならここにDBとのやり取りが入る
+  const name = nietzsche.length + 1;
+  const birth = req.body.birth;
+  const death = req.body.death;
+  const intro = req.body.intro;
+  const thought = req.body.thought;
+  const book = req.body.book;
+  const story = req.body.story
+  nietzsche.push( { name: name, birth: birth, death: death, intro: intro, thought: thought, book: book, story: story } );
+  console.log( nietzsche );
+  res.render('manga', {data: nietzsche} );
+});
+
 
 // 　ここまで
 
@@ -63,17 +88,17 @@ app.get("/keiyo_add", (req, res) => {
 
 });
 
-app.get("/keiyo2", (req, res) => {
-  // 本来ならここにDBとのやり取りが入る
-  res.render('keiyo2', {data: station2} );
-});
+// app.get("/keiyo2", (req, res) => {
+//   // 本来ならここにDBとのやり取りが入る
+//   res.render('keiyo2', {data: station2} );
+// });
 
-app.get("/keiyo2/:number", (req, res) => {
-  // 本来ならここにDBとのやり取りが入る
-  const number = req.params.number;
-  const detail = station2[ number ];
-  res.render('keiyo2_detail', {data: detail} );
-});
+// app.get("/keiyo2/:number", (req, res) => {
+//   // 本来ならここにDBとのやり取りが入る
+//   const number = req.params.number;
+//   const detail = station2[ number ];
+//   res.render('keiyo2_detail', {data: detail} );
+// });
 
 
 // 課題

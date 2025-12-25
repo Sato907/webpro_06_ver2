@@ -1,0 +1,22 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ニーチェの登場人物一覧</title>
+  <link rel="stylesheet" href="/manga.css">
+</head>
+</head>
+<body>
+  <h2>漫画「ニーチェが京都にやってきて17歳の私に哲学のことを教えてくれた。」の登場人物一覧</h2>
+  <table>
+    <tr><th>登場人物</th></tr>
+      <% let number = 0 %>
+      <% for( let row of data ) { %>
+        <!-- <tr><td><%= row.id %></td>
+        <td><%= row.code %></td> -->
+        <td><a href="/manga/<%= number %>"><%= row.name %></a></td></tr>
+         <% number += 1 %> 
+      <% } %>
+  </table>
+</body>
+</html>
