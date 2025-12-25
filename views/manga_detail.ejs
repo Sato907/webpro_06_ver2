@@ -13,10 +13,19 @@
     <tr><td>生誕</td><td><%= data.birth %></td></tr>
     <tr><td>死没</td><td><%= data.death %></td></tr>
     <tr><td>概要</td><td><%= data.intro %></td></tr>
-    <tr><td>主な思想</td><td><%= data.thought %></td></tr>
     <tr><td>著作物</td><td><%= data.book %></td></tr>
     <tr><td>登場話</td><td><%= data.story %></td></tr>  
 </table>
+<div class¥="philosophy-container">
+    <h3>主な思想</h3>
+    <% for( let item of data.thoughts ) { %>
+        <section class="philosophy-card">
+          <h4><%= item.title %></h4>
+          <p><%= item.description %></p>
+        </section>
+    <% } %>
+      
+</div>
   <a href="/manga">一覧に戻る</a>
 </body>
 </html>
