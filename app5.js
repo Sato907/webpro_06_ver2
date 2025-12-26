@@ -219,6 +219,11 @@ app.get("/manga", (req, res) => {
   res.render('manga', {data: nietzsche} );
 });
 
+// Create 新規登録
+app.get("/manga/create", (req, res) => {
+  res.redirect('/manga_create.html');
+});
+
 // Read　詳細表示
 app.get("/manga/:number", (req, res) => {
   // 本来ならここにDBとのやり取りが入る
@@ -227,21 +232,43 @@ app.get("/manga/:number", (req, res) => {
   res.render('manga_detail', {name: number, data: detail} );
 });
 
-// Create　
-app.post("/manga", (req, res) => {
+// Delete　削除
+app.get("/manga/delete/:number", (req, res) => {
+  // 本来は削除の確認ページを表示する
+  // 本来は削除する番号が存在するか厳重にチェックする
   // 本来ならここにDBとのやり取りが入る
-  const name = nietzsche.length + 1;
-  const birth = req.body.birth;
-  const death = req.body.death;
-  const intro = req.body.intro;
-  const thought = req.body.thought;
-  const book = req.body.book;
-  const story = req.body.story
-  nietzsche.push( { name: name, birth: birth, death: death, intro: intro, thought: thought, book: book, story: story } );
-  console.log( nietzsche );
-  res.render('manga', {data: nietzsche} );
+  nietzsche.splice( req.params.number, 1 );
+  res.redirect('/manga' );
 });
 
+
+// Create 新規登録
+app.post("/manga", (req, res) => {
+  // フォームから送られてきたデータを取り出す
+  // ※ thoughts は HTML側で name="thoughts[0][title]" としたことで、
+  // 自動的に [ {title: '...', description: '...'}, ... ] という配列になる
+
+  const { name, birth, death, intro, thoughts, book, story } = req.body;
+
+  const newPhilosopher = {
+    name: name,       
+    birth: birth,       
+    death: death,      
+    intro: intro,       
+    thoughts: thoughts, 
+    book: book,        
+    story: story       
+  };
+
+  
+  nietzsche.push(newPhilosopher);
+
+  // デバッグ
+  console.log("新しく登録されました:", newPhilosopher);
+
+  // 一覧画面にリダイレクト
+  res.redirect('/manga');
+});
 
 // 　ここまで
 
