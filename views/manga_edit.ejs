@@ -1,0 +1,58 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title><%= data.name %></title>
+  <link rel="stylesheet" href="/manga.css">
+</head>
+<body>
+  <h2><%= data.name %>の編集</h2>
+  <form action="/manga/update/<%= name %>" method="POST">
+    <table>
+      <tr><th>項目</th><th>データ</th></tr>
+      <tr><td>登場人物</td><td><input type="text" name="name" value="<%= data.name %>"></td></tr>
+      <tr><td>生誕</td><td><input type="text" name="birth" value="<%= data.birth %>"></td></tr>
+      <tr><td>死没</td><td><input type="text" name="death" value="<%= data.death %>"></td></tr>
+      <tr><td>概要</td><td><input type="text" name="intro" value="<%= data.intro %>"></td></tr>
+      <tr><td>著作物</td><td><input type="text" name="book" value="<%= data.book %>"></td></tr>
+      <tr><td>登場話</td><td><input type="text" name="story" value="<%= data.story %>"></td></tr>
+    </table>
+
+    <div class¥="philosophy-container">
+        <h3>主な思想</h3>
+        <% for( let item of data.thoughts ) { %>
+            <section class="philosophy-card">
+              <h4><%= item.title %></h4>
+              <p><%= item.description %></p>
+            </section>
+        <% } %>
+          
+    </div>
+
+    <div id="thoughts-group">
+        <p class="thought-title">主な思想の編集</p>
+        
+        <% data.thoughts.forEach((item, index) => { %>
+            <div class="thought-item">
+                <div class="form-group">
+                    <label>思想名 (<%= index + 1 %>):</label>
+                    <input type="text" 
+                           name="thoughts[<%= index %>][title]" 
+                           value="<%= item.title %>" 
+                           required>
+                </div>
+                <div class="form-group">
+                    <label>説明:</label>
+                    <textarea name="thoughts[<%= index %>][description]" 
+                              rows="3" 
+                              required><%= item.description %></textarea>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+
+    <input type="submit" value="登録">
+  </form>
+  <a href="/keiyo2">駅一覧に戻る</a>
+</body>
+</html>

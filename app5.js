@@ -260,11 +260,53 @@ app.post("/manga", (req, res) => {
     story: story       
   };
 
-  
   nietzsche.push(newPhilosopher);
 
   // デバッグ
   console.log("新しく登録されました:", newPhilosopher);
+
+  // 一覧画面にリダイレクト
+  res.redirect('/manga');
+});
+
+
+
+// Edit　編集
+app.get("/manga/edit/:number", (req, res) => {
+  // 本来ならここにDBとのやり取りが入る
+  const number = req.params.number;
+  const detail = nietzsche[ number ];
+
+  //エラー処理
+  if(!detail){
+    return res.status(404).send("指定された哲学者が見つかりません．");
+  }
+
+  res.render('manga_edit', {name: number, data: detail} );
+});
+
+// Update 更新
+app.post("/manga/update/:number", (req, res) => {
+  // 本来は変更する番号が存在するか，各項目が正しいか厳重にチェックする
+  // 本来ならここにDBとのやり取りが入る
+  const number = req.params.number;
+  const { name, birth, death, intro, thoughts, book, story } = req.body;
+
+  const updatePhilosopher = {
+    name: name,       
+    birth: birth,       
+    death: death,      
+    intro: intro,       
+    thoughts: thoughts, 
+    book: book,        
+    story: story       
+  };
+
+  nietzsche[number] = updatePhilosopher;
+
+
+  // デバッグ
+  console.log("${number}のデータを新しく更新しました:", updatePhilosopher);
 
   // 一覧画面にリダイレクト
   res.redirect('/manga');
