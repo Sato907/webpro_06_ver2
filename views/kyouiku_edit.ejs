@@ -1,0 +1,31 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title><%= data.name %></title>
+  <link rel="stylesheet" href="/kyouiku.css">
+</head>
+<body>
+  <h2><%= data.name %>の編集</h2>
+  <form action="/kyouiku/update/<%= name %>" method="POST">
+    <table>
+      <tr><th>項目</th><th>データ</th></tr>
+      <tr><td>人物</td><td><input type="text" name="name" value="<%= data.name %>"></td></tr>
+      <tr><td>生誕</td><td><input type="text" name="birth" value="<%= data.birth %>"></td></tr>
+      <tr><td>死没</td><td><input type="text" name="death" value="<%= data.death %>"></td></tr>
+      <tr><td>著作物</td><td><input type="text" name="book" value="<%= data.book %>"></td></tr>
+      <tr><td>教育への影響</td><td><input type="text" name="study" value="<%= data.study %>"></td></tr>
+      <tr><td>関連するキーワード</td><td><input type="text" name="key" value="<%= data.key %>"></td></tr>
+
+    </table>
+
+    
+
+    
+    <div class="submit-container">
+        <input type="submit" value="登録" class ="common-btn">
+    </div> 
+  </form>
+  <a href="/kyouiku">教育思想か一覧に戻る</a>
+</body>
+</html>

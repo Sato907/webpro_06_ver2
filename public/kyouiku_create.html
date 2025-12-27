@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>教育思想家詳細新規登録</title>
+    <link rel="stylesheet" href="/kyouiku.css">
+</head>
+<body>
+    <form action="/kyouiku" method="POST">
+        
+            <div class="form-group">
+                <label for="name">人物名:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="birth">生誕年:</label>
+                <input type="text" id="birth" name="birth" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="death">死没年:</label>
+                <input type="text" id="death" name="death">
+            </div>
+        
+            <div class="form-group">
+                <label for="book">著作:</label>
+                <input type="text" id="book" name="book" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="study">教育への影響:</label>
+                <input type="text" id="study" name="study" required>
+            </div>
+
+            <div class="form-group">
+                <label for="key">関連するキーワード:</label>
+                <input type="text" id="key" name="key" required>
+            </div>
+
+            
+    
+
+        
+            <div class="submit-container">
+                <input type="submit" value="登録" class ="common-btn">
+            </div> 
+    </form>
+
+    
+    <a href="/kyouiku">教育思想家一覧に戻る</a>
+</body>
+</html>

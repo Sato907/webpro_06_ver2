@@ -36,6 +36,19 @@ story | 文字列 | 登場話
 ・主な思想では，本システムでは漫画で取り上げられている概念や思想を中心として紹介している．また，解説も漫画を基に初学者にもわかりやすい表現を用いている．
 ・著作物では，日本語訳がされている作品を中心として，発行年順に並べている．
 
+### 教育原理で登場する主要な教育思想家一覧
+
+項目名 | 型 | 内容 
+-|-|- 
+name| 文字列 | 人物
+birth | 数値 | 生誕
+death | 数値 | 死没
+book | 文字列 | 著作物
+study | 文字列　| 教育への影響
+key | 文字列　| 関連するキーワード
+
+・関連するキーワードとは，日本の教育において重要視される思想や考え方を示している．
+
 
 <!-- ### ダンガンロンパ
 はじめに，ダンガンロンパ攻略システムにおけるデータ構造について下記の表に示す．
@@ -107,7 +120,17 @@ other | 文字列 | 間違い探しの解答
 削除 | get | /manga/delete/:number
 編集 | get  | /manga/edit/:number
 更新 | post | /manga/update/:number
-　
+
+・教育原理
+
+機能 | メソッド | リソース名  
+-|-|-
+一覧 | get | /kyouiku
+詳細表示 | get　| /kyouiku/:number
+新規登録 | get |　/kyouiku/create 
+削除 | get | /kyouiku/delete/:number
+編集 | get  | /kyouiku/edit/:number
+更新 | post | /kyouiku/update/:number
 
 
 ```mermaid

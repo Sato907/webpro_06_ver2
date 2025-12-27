@@ -1,0 +1,25 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title><%= data.name  %></title>
+  <link rel="stylesheet" href="/kyouiku.css">
+</head>
+<body>
+  <h2><%= data.name %>の詳細</h2>
+  <table>
+    <tr><th>項目</th><th>データ</th></tr>
+    <tr><td>人物</td><td><%= data.name %></td></tr>
+    <tr><td>生誕</td><td><%= data.birth %></td></tr>
+    <tr><td>死没</td><td><%= data.death %></td></tr>
+    <tr><td>著作物</td><td><%= data.book %></td></tr>
+    <tr><td>日本の教育への影響</td><td><%= data.study %></td></tr>
+    <tr><td>関連するキーワード</td><td><%= data.key %></td></tr>  
+</table>
+  <a href="/kyouiku">一覧に戻る</a>
+  <a href="/kyouiku/delete/<%= name %>" onclick="return confirm('本当にこの教育思想家を削除してもよろしいですか？');">
+    削除
+  </a>
+  <a href="/kyouiku/edit/<%= name %>">編集画面へ</a>
+</body>
+</html>
