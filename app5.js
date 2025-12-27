@@ -210,6 +210,17 @@ let nietzsche = [
             ],book:"『精神病理学総論』『世界観の心理学』『大学の理念』『現代の精神的状況』『哲学』『理性と実存』『実存哲学』『罪の責め』『真理について』『歴史の起源と目標』『哲学の入門』『大哲学書』",story:"15,16"},
 ];
 
+//２次元美少女
+
+let bisyoujo = [
+  { name:"雪ノ下雪乃", month:1,day:3,sintyou:0,taijuu:0, ti:"B",seiza:"山羊座",anime:"やはり俺の青春ラブコメは間違っている。(俺ガイル)",belong:"千葉県立総武高校,2年J組(国際教養科),奉仕部部長",intro:"ヒロインの1人.主人公・比企谷八幡と同じ総武高校2年生で、普通科よりも偏差値が2、3ほど高い国際教養科に属す．中学生の頃に編入した帰国子女．流れるような黒髪に大人びた美少女であり,白いラインが入った黒のニーハイを吐いている．学校では誰もが知るほどの存在.八幡とは特に接点は無かったのだが,彼が奉仕部の顧問・平塚静によって彼女が部長を務める謎の部活「奉仕部」へと連行されたことから2人の交流が始まる．学力テストでは常に首席．勉強のみならず運動神経も並外れてよく，楽器等もでき家事もできるという超人である．しかし，’物事をすぐに極めては次に移る’という継続力のない行動を続けていたため，体力だけはあまりない．また，勝負事になると極度の負けず嫌いを発揮しそれが原因でいらない面倒ごとを引き寄せることもある．可愛い．クーデレ．部活動時は本を読んでいることが多い．猫と「パンダのパンさん」というキャラクターが大好きだが，人前では中々それを素直に出せない．ディスティニーランドのお土産屋でパンさんを物欲しそうに見つめている雪の下はとてもかわいかった．おれが買ってやるからな．反対に，犬は大の苦手だが前述した通り負けず嫌いなので「苦手なだけ」と言い張っている．可愛い．また，方向音痴なようで慣れない場所では一人で道に迷っていることが何度かあった．その美貌と才能ゆえに小学校高学年の頃から多くの男子に好意を寄せられ続け，同時に女子からは常に嫉妬の対象とされて壮絶ないじめを受け続け，友達と呼べる存在が誰もいなかった．そういった経験もあり敵対するものには容赦が無いが，本作のもうお１人のヒロイン・由比ヶ浜結衣のように突き放してもグイグイ迫ってくるような人に対しては，どうして良いか判らずオドオドしてしまう．「ゆきのん」という愛称は彼女が命名した．始めての友人とも呼ぶべき存在に狼狽える様子はとても心惹かれた．一生観測していたい．また，正しくあろうとするあまりに正しいコト以外を認めようとしないため，正しさの中で生きられない人間や正しさで助からない人間，または正しいだけではついていけない人間から反感を買ったりすることが多い．実際，捻くれ者である八幡と問題解決の過程で揉めている描写が多く見られた．そのためか，嘘がつけない(本人曰く「失言も暴言も吐くけれど，虚言は吐いたことがない」)．センシティブな事柄については嘘にならないよう言葉を選ぶため，必然的に言葉足らずになり，それが誤解を生んでしまうことも多い．加えて，才能に対する嫉妬によるいじめを受けた経験から，無意識的に他人を見下している悪癖があり，それが原因で反感を買うこともある．「自分が正しい」と思っているがゆえ自己中心的な所を持つ．自分が犠牲になれば丸く収まる，と自身の能力が高いゆえに協調性に欠ける節がある．また，実の姉・雪ノ下陽乃に強いコンプレックスを抱いている．",family:"父(地方議員・建設会社社長),母，姉(雪ノ下陽乃,大学生)",hobby:"読書(一般文芸，英米文学，古典，猫の写真集),乗馬，映画鑑賞",skill:"炊事洗濯掃除家事全般，合気道",like:"甘味",cast:"早見沙織",akusuta:0,kanba:0,key:0,posuta:0,fig:0},
+  { name:"香風智乃", month:12,day:4,sintyou:149,taijuu:0, ti:"AB",seiza:"射手座",anime:"ご注文はうさぎですか？(ごちうさ)",belong:"中学生→高校生へ．ココアと同じ高校に進学．",intro:"準主人公．通称「チノ」．名前の由来はカプチーノである．淡い青色の髪で目の色も青色．髪型は普段はストレートであるが，ポニーテール，ツインテール，お団子などTPOに応じてバリエーションが豊富．最近のイベント「ご注文はアトレですか？」のビジュアルがとてもメロくて刺さっている．普段は両サイドの前髪をヘアピンをクロスさせて留めているのがトレードマークである．幼い容姿や低い身長をコンプレックスに感じ，身長を伸ばすことや胸を大きくすることに関心を持っている．喫茶店「ラビットハウス」のオーナーの孫娘．いつもアンゴラうさぎのティッピーを連れている．白いもふもふしている．昼間はラビットハウスを主人公・ココアとリゼを含めた３人で切り盛りしている．性格はクールでおとなしい．物語開始当初は引っ込み思案な上に感情表現が薄く，笑顔を見せる描写がほとんどなかったが，ココアをはじめとする周囲の人物との関わりを通じて徐々に柔らかくなり，最近ではおとなしい性格は変わらないものの表情にはっきり変化が現れる様になった．ツッコミ役．奥ゆかしいチノちゃんも可愛かったが今のチノちゃんも可愛い．どちらも好き．2歳年上のココアからは妹扱いされ盛んに可愛がられており，当初は妹ではないと否定し困惑する様子が多々見られたが，徐々にまんざらでもない様子を見せ，近年はココアの目の前では肯定はしないが裏では姉と思っている．一方で，ココアが同級生のマヤやメグも妹扱いしていると不機嫌になり，無意識に嫉妬していた．可愛い．しかしこのマや，メグとは中学からのクラスメートでチノを含めた３人をリゼがそれぞれの頭文字をとって「チマメ隊」と呼称し親しまれている．また，コーヒーに精通しているが味覚は年相当なのでミルクやサトウを入れなければ飲めない．ココアと同様アスパラガスや人参などの野菜が嫌いな一面もある．同じである．学校以外では，ティッピーを頭に乗せており，別のうさぎあんこを抱いた際にも頭に乗せている．どうやら頭に乗せないと気がすまない様子．接客業や周りに年上が多い癖で普段から敬語で話しており，老若男女問わず「さん」付けで話している．しかし，ブランデー入りのチョコレートを食べて酔っ払ってしまった時には見境がないほどのお姉ちゃんっ子になり，喋り方も砕けたものになった．(2期7羽.話数を羽と書くのも特徴的である．)意外と子供好き．うさぎも好きだが，懐かれない体質であることに悩んでいる．またココアと共通する部分があり，そこを指摘されると動揺するココアは言うまでもなく大喜びする．ちなみにチノのキャラソンは70曲もあるらしい．音楽系ではなく日常系アニメなのになぜ…",family:"父(オーナー),祖父(?)",hobby:"チェス，ジグソーパズル，ボトルシップ，コーヒー占い",skill:"香りだけでコーヒーの銘柄を当てること,腹話術",like:"コーヒー",cast:"水瀬いのり",akusuta:0,kanba:0,key:0,posuta:0,fig:0},
+  { name:"香風智乃", month:12,day:4,sintyou:149,taijuu:0, ti:"AB",seiza:"射手座",anime:"ご注文はうさぎですか？(ごちうさ)",belong:"中学生→高校生へ．ココアと同じ高校に進学．",intro:"",family:"",skill:"炊事洗濯掃除家事全般，合気道",like:"甘味",cast:"早見沙織",akusuta:0,kanba:0,key:0,posuta:0,fig:0},
+
+];
+
+
+
 //教職
 
 let kyouiku = [
@@ -408,6 +419,107 @@ app.post("/kyouiku/update/:number", (req, res) => {
 
   // 一覧画面にリダイレクト
   res.redirect('/kyouiku');
+});
+
+//ここまで
+
+//二次元美少女
+
+// 一覧
+app.get("/bisyoujo", (req, res) => {
+  // 本来ならここにDBとのやり取りが入る
+  res.render('bisyoujo', {data: bisyoujo} );
+});
+
+// Create 新規登録
+app.get("/bisyoujo/create", (req, res) => {
+  res.redirect('/bisyoujo_create.html');
+});
+
+// Read　詳細表示
+app.get("/bisyoujo/:number", (req, res) => {
+  // 本来ならここにDBとのやり取りが入る
+  const number = req.params.number;
+  const detail = bisyoujo[ number ];
+  res.render('bisyoujo_detail', {name: number, data: detail} );
+});
+
+// Delete　削除
+app.get("/bisyoujo/delete/:number", (req, res) => {
+  // 本来は削除の確認ページを表示する
+  // 本来は削除する番号が存在するか厳重にチェックする
+  // 本来ならここにDBとのやり取りが入る
+  bisyoujo.splice( req.params.number, 1 );
+  res.redirect('/bisyoujo' );
+});
+
+
+// Create 新規登録
+app.post("/bisyoujo", (req, res) => {
+  
+  const name = req.body.name; 
+
+  const {month,day,sintyou,taijuu,ti,seiza,anime,belong,intro,family,hobby,skill,like,cast,akusuta,kanba,key,posuta,fig} = req.body;
+
+  
+  bisyoujo.push( { name: name, month: month, day: day, sintyou:sintyou, taijuu: taijuu, ti: ti, seiza: seiza, anime: anime, belong: belong, intro: intro, family: family, hobby: hobby, skill: skill, like: like, cast: cast, akusuta: akusuta, kanba: kanba, key: key, posuta: posuta, fig: fig } );
+  console.log( bisyoujo);
+
+  // デバッグ
+  console.log("新しいデータが登録されました:", name);
+
+  // 一覧画面にリダイレクト
+  res.redirect('/bisyoujo');
+});
+
+
+
+// Edit　編集
+app.get("/bisyoujo/edit/:number", (req, res) => {
+  // 本来ならここにDBとのやり取りが入る
+  const number = req.params.number;
+  const detail = bisyoujo[ number ];
+
+  //エラー処理
+  if(!detail){
+    return res.status(404).send("指定された美少女が見つかりません．");
+  }
+
+  res.render('bisyoujo_edit', {name: number, data: detail} );
+});
+
+// Update 更新
+app.post("/bisyoujo/update/:number", (req, res) => {
+  // 本来は変更する番号が存在するか，各項目が正しいか厳重にチェックする
+  // 本来ならここにDBとのやり取りが入る
+  const number = req.params.number;
+
+  bisyoujo[req.params.number].name = req.body.name;
+  bisyoujo[req.params.number].month = req.body.month;
+  bisyoujo[req.params.number].day = req.body.day;
+  bisyoujo[req.params.number].sintyou = req.body.sintyou;
+  bisyoujo[req.params.number].taijuu = req.body.taijuu;
+  bisyoujo[req.params.number].ti = req.body.ti;
+  bisyoujo[req.params.number].seiza = req.body.seiza;
+  bisyoujo[req.params.number].anime = req.body.anime;
+  bisyoujo[req.params.number].belong = req.body.belong;
+  bisyoujo[req.params.number].intro = req.body.intro;
+  bisyoujo[req.params.number].family = req.body.family;
+  bisyoujo[req.params.number].hobby = req.body.hobby;
+  bisyoujo[req.params.number].skill = req.body.skill;
+  bisyoujo[req.params.number].like = req.body.like;
+  bisyoujo[req.params.number].cast = req.body.cast;
+  bisyoujo[req.params.number].akusuta = req.body.akusuta;
+  bisyoujo[req.params.number].kanba = req.body.kanba;
+  bisyoujo[req.params.number].key = req.body.key;
+  bisyoujo[req.params.number].posuta = req.body.posuta;
+  bisyoujo[req.params.number].fig = req.body.fig;
+
+  // デバッグ
+  console.log("${number}のデータを新しく更新しました:", bisyoujo);
+
+  // 一覧画面にリダイレクト
+  res.redirect('/bisyoujo');
 });
 
 //ここまで

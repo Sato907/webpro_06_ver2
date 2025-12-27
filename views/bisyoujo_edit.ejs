@@ -1,0 +1,45 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title><%= data.name %></title>
+  <link rel="stylesheet" href="/bisyoujo.css">
+</head>
+<body>
+  <h2><%= data.name %>の編集</h2>
+  <form action="/bisyoujo/update/<%= name %>" method="POST">
+    <table>
+        <tr><th>項目</th><th>データ</th></tr>
+        <tr><td>人物</td><td><input type="text" name="name" value="<%= data.name %>"></td></tr>
+        <tr><td>生誕月</td><td><input type="text" name="month" value="<%= data.month %>"></td></tr>
+        <tr><td>生誕日</td><td><input type="text" name="day" value="<%= data.day %>"></td></tr>
+        <tr><td>身長</td><td><input type="text" name="sintyou" value="<%= data.sintyou %>"></td></tr>
+        <tr><td>体重</td><td><input type="text" name="taijuu" value="<%= data.taijuu %>"></td></tr>
+        <tr><td>血液型</td><td><input type="text" name="ti" value="<%= data.ti %>"></td></tr>
+        <tr><td>星座</td><td><input type="text" name="seiza" value="<%= data.seiza %>"></td></tr>
+        <tr><td>作品名</td><td><input type="text" name="anime" value="<%= data.anime %>"></td></tr>
+        <tr><td>所属</td><td><input type="text" name="belong" value="<%= data.belong %>"></td></tr>
+        <tr><td>人物紹介</td><td><input type="text" name="intro" value="<%= data.intro %>"></td></tr>
+        <tr><td>家族構成</td><td><input type="text" name="family" value="<%= data.family %>"></td></tr>
+        <tr><td>趣味</td><td><input type="text" name="hobby" value="<%= data.hobby %>"></td></tr>
+        <tr><td>特技</td><td><input type="text" name="skill" value="<%= data.skill %>"></td></tr>
+        <tr><td>好物</td><td><input type="text" name="like" value="<%= data.like %>"></td></tr>
+        <tr><td>声優</td><td><input type="text" name="cast" value="<%= data.cast %>"></td></tr>
+        <tr><td>所持しているアクリルスタンド数</td><td><input type="text" name="akusuta" value="<%= data.akusuta %>"></td></tr>
+        <tr><td>所持している缶バッチ数</td><td><input type="text" name="kanba" value="<%= data.kanba %>"></td></tr>
+        <tr><td>所持しているポスター</td><td><input type="text" name="posuta" value="<%= data.posuta %>"></td></tr>
+        <tr><td>所持しているフィギュア</td><td><input type="text" name="fig" value="<%= data.fig %>"></td></tr>
+
+
+    </table>
+
+    
+
+    
+    <div class="submit-container">
+        <input type="submit" value="登録" class ="common-btn">
+    </div> 
+  </form>
+  <a href="/bisyoujo">一覧に戻る</a>
+</body>
+</html>

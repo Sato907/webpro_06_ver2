@@ -1,0 +1,102 @@
+/* 全体のフォント */
+body, input, textarea, button, select {
+    font-family: sans-serif;
+    background-color: #f0f0f0;
+}
+
+body {
+    background-color: #f0f0f0;
+    font-family: sans-serif;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* 長文対策 */
+}
+td {
+    border: 1px solid #999;
+    padding: 8px;
+    word-wrap: break-word; /* 枠内で改行 */
+}
+
+
+/* create */
+
+/* フォーム全体のフォントサイズと幅 */
+form {
+    max-width: 600px;
+    margin: 30px auto;
+    font-size: 1.1rem;
+}
+
+/* 各行のレイアウト */
+.form-group {
+    display: flex;
+    align-items: flex-start; /* textareaがあるため上揃えに変更 */
+    margin-bottom: 20px; 
+}
+
+/* ラベルの調整 */
+.form-group label {
+    flex: 0 0 140px;
+    text-align: right;
+    margin-right: 20px;
+    font-weight: bold;
+    color: #333;
+    padding-top: 10px; /* 入力欄と高さ合わせ */
+}
+
+/* 入力欄とテキストエリアの調整 */
+.form-group input, 
+.form-group textarea {
+    flex: 1;
+    padding: 10px;
+    font-size: 1rem;
+    font-family: sans-serif; 
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+/* ボタン共通設定 */
+.common-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-family: sans-serif; 
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.common-btn:hover {
+    background-color: #555;
+    color: #fff;
+}
+
+/* ラベルと同じ幅(140px+20px)だけ左を空ける */
+.button-container {
+    margin-left: 160px; 
+    margin-bottom: 30px;
+}
+
+/* 中央寄せ */
+.submit-container {
+    text-align: center;
+    margin-top: 40px;
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+}
+
+/* 登録ボタン専用：少し大きくして色を反転させる */
+.submit-container .common-btn {
+    background-color: #555;
+    color: #fff;
+    padding: 12px 60px; /* 横幅を広げる */
+}
+
+.submit-container .common-btn:hover {
+    background-color: #222;
+}

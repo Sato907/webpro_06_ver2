@@ -1,0 +1,25 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>佐藤の推しキャラ(抜粋)の一覧</title>
+  <link rel="stylesheet" href="/bisyoujo.css">
+</head>
+</head>
+<body>
+  <h2>佐藤の推しキャラ(抜粋)の一覧</h2>
+  <table>
+    <tr><th>キャラクター</th></tr>
+      <% let number = 0 %>
+      <% for( let row of data ) { %>
+        <!-- <tr><td><%= row.id %></td>
+        <td><%= row.code %></td> -->
+        <td><a href="/bisyoujo/<%= number %>"><%= row.name %></a></td></tr>
+         <% number += 1 %> 
+      <% } %>
+  </table>
+  <a href="/bisyoujo/create">新規登録</a>
+  
+
+</body>
+</html>
