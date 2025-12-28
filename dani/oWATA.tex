@@ -9,6 +9,7 @@
 \usepackage{siunitx}
 \usepackage{listings} 
 \usepackage{tabularx}
+\usepackage{subcaption}
 
 \begin{document}
 
@@ -121,7 +122,7 @@ https://github.com/Sato907/webpro\_06\_ver2
 %後で
 授業では取り扱っていない技術についての説明と採用理由について説明する．まず，授業で取り扱った京葉線システムでは，挿入するデータがそれぞれの項目において単数で1:1対応をしていた．しかし．ニーチェシステムの主な思想は複数あり，授業内の記述方法だと見えづらくなってしまう恐れがあった．よって，本システムでは主な思想の項目のみを配列を用いて表現することとした．この際，「title」と「description」というタグを設け，
 前者には思想の名前，後者にはその思想の内容を説明している．manga\_detail.ejsでは，この部分をclassとしてtitleとdescriptionそれぞれfor文を用いて表示するように設計している．manga\_edit.ejs内においても，同様の処置を取ることにより編集が行えるようにしている．
-新規登録を行うmanga\_create.htmlにおいては，ユーザが主な思想欄にてどのようなことを入力すべきかを援助するために，placeholderを用いて薄字で「ここに理想の名前を入力」など表示するように設計した．更に，「＋別の思想を追加」ボタンを押下された場合，先に表示されているような思想，説明の枠ど同様のものが表示されるように設計を追加した．<script></script>で囲われている部分が該当箇所である．ブラウザのちょっとした処理であるためこの技術を採用した．
+新規登録を行うmanga\_create.htmlにおいては，ユーザが主な思想欄にてどのようなことを入力すべきかを援助するために，placeholderを用いて薄字で「ここに思想の名前を入力」など表示するように設計した．更に，「＋別の思想を追加」ボタンを押下された場合，先に表示されているような思想，説明の枠ど同様のものが表示されるように設計を追加した．<script></script>で囲われている部分が該当箇所である．ブラウザのちょっとした処理であるためこの技術を採用した．
 また，削除処理を行う際にリンクを踏むとすぐに処理が実行されると誤って押下してしまった場合に対応できないため，onclickを使うことで確認するページを用意した．
 最後に，manga.cssの要素と実装内容について表\ref{table:ge}に示す．主に授業外の技術として追加した理由は，表として一覧性を高めることでユーザがストレスなくデータを閲覧することができる点，また背景やフォントの色を変更することでデザイン性を高め，わかりやすく可視化できる点，ボタンなど押下したことがわかるようなギミックを追加することでユーザが不安に感じることなくデータを閲覧できるようにした点が挙げられる．
 
@@ -376,7 +377,7 @@ https://github.com/Sato907/webpro\_06\_ver2
     \end{tabular}
 \end{table}
 
-\subsubsection{授業外の技術}
+
 
 \subsubsection{授業外の技術}
 
@@ -454,7 +455,7 @@ satousuzuna@satouryousainoMacBook-Pro webpro_06 % node app5.js
 \subsection{エラー処理}
 本システムで想定されるエラーとそれに伴う対処について説明する．
 まず，ブラウザにてurlを入力しても本システムに繋がらず「このサイトにアクセスできません」と表示される場合はサーバを立ち上げていない可能性がある．ターミナルに戻り，nodeというコマンドでapp5.jsを立ち上げているか確認する．また，サーバを立ち上げているのにも関わらず本システムにアクセスできない場合は，反対にurlのリンクが正しく入力できていない可能性がある．「Cannot GET」など画面に表示された場合は先程打ったurlを確認する．
-更に，特にユーザが直接入力できる編集機能について，もし指定した詳細表示のリンクが間違っている場合は，「指定された〇〇が見つかりません．」というメッセージとともに404コードが表示されるようにしている，この場合，もう一度サーバを再起動し正しいurlを入力しているか確認し，必要ならばapp5.js内の詳細画面について記しているコードの打ち間違いおよびdetail,ejsファイルを確認する．また，新規登録をする際に未記入のまま登録ボタンを押すと「このフィールドを入力してください」という注意文が表示される．しっかりと全項目文字や数字を入れてボタンを押すこと．
+更に，特にユーザが直接入力できる編集機能について，もし指定した詳細表示のリンクが間違っている場合は，「指定された〇〇が見つかりません．」というメッセージとともに404コードが表示されるようにしている，この場合，もう一度サーバを再起動し正しいurlを入力しているか確認し，必要ならばapp5.js内の詳細画面について記しているコードの打ち間違いおよびdetail.ejsファイルを確認する．また，新規登録をする際に未記入のまま登録ボタンを押すと「このフィールドを入力してください」という注意文が表示される．しっかりと全項目文字や数字を入れてボタンを押すこと．
 
 
 
@@ -479,7 +480,7 @@ satousuzuna@satouryousainoMacBook-Pro webpro_06 % node app5.js
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=100mm]{sono1.pdf}
+    \includegraphics[width=\textwidth]{sono1.pdf}
     \caption{ニーチェシステムへのアクセス方法}
     \label{fig:sono1}
 \end{figure}
@@ -491,7 +492,7 @@ satousuzuna@satouryousainoMacBook-Pro webpro_06 % node app5.js
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=100mm]{sono2.pdf}
+    \includegraphics[width=\textwidth]{sono2-2.pdf}
     \caption{ニーチェシステムの一覧画面}
     \label{fig:sono2}
 \end{figure}
@@ -502,7 +503,7 @@ satousuzuna@satouryousainoMacBook-Pro webpro_06 % node app5.js
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=100mm]{sono3.pdf}
+    \includegraphics[width=\textwidth]{sono3-2.pdf}
     \caption{ニーチェシステムの詳細画面}
     \label{fig:sono3}
 \end{figure}
@@ -512,7 +513,7 @@ satousuzuna@satouryousainoMacBook-Pro webpro_06 % node app5.js
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=100mm]{sono41.pdf}
+    \includegraphics[width=\textwidth]{sono41.pdf}
     \caption{ニーチェシステムの詳細画面から一覧画面へ戻る方法}
     \label{fig:sono41}
 \end{figure}
@@ -524,16 +525,16 @@ OKボタンを押下すると選択された哲学者が削除され，誤って
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=100mm]{sono42.pdf}
+    \includegraphics[width=\textwidth]{sono42.pdf}
     \caption{ニーチェシステムの削除をするリンク}
-    \label{fig:sono41}
+    \label{fig:sono42}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=100mm]{sono41.pdf}
+    \includegraphics[width=\textwidth]{sono43-2.pdf}
     \caption{ニーチェシステムの削除を選択する画面}
-    \label{fig:sono41}
+    \label{fig:sono43}
 \end{figure}
 
 
@@ -543,41 +544,58 @@ OKボタンを押下すると選択された哲学者が削除され，誤って
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=100mm]{sono44.pdf}
-    \caption{ニーチェシステムの編集画面を選択するリンク}
-    \label{fig:sono44}
+    \begin{subfigure}{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{sono44-2.pdf}
+        \caption{ニーチェシステムの編集画面を選択するリンク}
+        \label{fig:sono44}
+    \end{subfigure}
+    \vspace{1em} 
+    
+    \begin{subfigure}{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{sono45-2.pdf}
+        \caption{ニーチェシステムの編集をする画面(表)}
+        \label{fig:sono45}
+    \end{subfigure}
+    \caption{ニーチェシステムの編集画面（1/2）}
 \end{figure}
 
+\newpage
 \begin{figure}[H]
+    \ContinuedFloat 
     \centering
-    \includegraphics[width=100mm]{sono45.pdf}
-    \caption{ニーチェシステムの編集をする画面(表)}
-    \label{fig:sono45}
+    \begin{subfigure}{\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{sono46-2.pdf}
+        \caption{ニーチェシステムの編集をする画面(主な思想)}
+        \label{fig:sono46}
+    \end{subfigure}
+    \caption{ニーチェシステムの編集画面（2/2）}
+    \label{fig:edit_screens}
 \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=100mm]{sono46.pdf}
-    \caption{ニーチェシステムの編集をする画面(主な思想)}
-    \label{fig:sono46}
-\end{figure}
+
+
 
 \noindent
 また，編集後は図\ref{fig:sono47}のように編集画面の一番下にある登録ボタンを押すことでページが更新される．また，編集をやめる場合は一覧に戻るを押すと中止することができる．
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=100mm]{sono47.pdf}
+    \includegraphics[width=\textwidth]{sono47-2.pdf}
     \caption{ニーチェシステムの編集を登録する画面}
     \label{fig:sono47}
 \end{figure}
+
+
 
 最後に，新規登録の方法について説明する．新規登録をするには，まず一覧画面の左下にある「新規登録」のリンクをクリックすると図\ref{fig:sonono1}のような新規登録画面が表示される．
 また，主な思想を追加したい場合は「＋別の思想を追加」ボタンを押下するとタブが下に追加され記入することができる．
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=100mm]{sonono1.pdf}
+    \includegraphics[width=\textwidth]{sonono1-1.pdf}
     \caption{ニーチェシステムの新規登録を行う画面}
     \label{fig:sonono1}
 \end{figure}
