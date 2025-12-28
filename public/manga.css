@@ -4,10 +4,7 @@ body, input, textarea, button, select {
     background-color: #f0f0f0;
 }
 
-body {
-    background-color: #f0f0f0;
-    font-family: sans-serif;
-}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -69,7 +66,7 @@ form {
     margin-bottom: 20px; 
 }
 
-/* ラベルの調整 */
+/* /* ラベルの調整 */
 .form-group label {
     flex: 0 0 140px;
     text-align: right;
@@ -77,7 +74,7 @@ form {
     font-weight: bold;
     color: #333;
     padding-top: 10px; /* 入力欄と高さ合わせ */
-}
+} 
 
 /* 入力欄とテキストエリアの調整 */
 .form-group input, 
@@ -93,7 +90,7 @@ form {
 /* 「主な思想」 */
 .section-title {
     font-weight: bold;
-    margin-bottom: 20ßpx;
+    margin-bottom: 20px;
     padding-left: 15px;
 }
 

@@ -1,0 +1,586 @@
+\documentclass[uplatex,dvipdfmx]{jlreq}
+\usepackage[fleqn,tbtags]{mathtools}
+\usepackage[uplatex,deluxe]{otf} % UTF
+\usepackage[noalphabet]{pxchfon} % must be after otf package
+\usepackage{stix2} %欧文＆数式フォント
+\usepackage[fleqn,tbtags]{mathtools} % 数式関連 (w/ amsmath)
+% \usepackage{hira-stix} % ヒラギノフォント＆STIX2 フォント代替定義（Warning回避）
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{listings} 
+\usepackage{tabularx}
+
+\begin{document}
+
+\title{Webプログラミング課題　仕様書}
+\author{25G1059 佐藤涼菜}
+\date{2025年12月18日}
+\maketitle
+
+\section{はじめに}
+本レポートは，授業で取り扱った京葉線システムのような一覧表示をベースとしたWebアプリケーションに関する仕様を，「開発者向け」「管理者向け」「利用者向け」の三観点から説明することを目的とする．なお，「開発者向け」はシステムごとに１つで計３つ，「管理者向け」は１つ，「利用者向け」は３つの内の代表的なシステムについて１つ記述する．
+ソースコードは以下のGithubのリンクにて公開する．
+
+https://github.com/Sato907/webpro\_06\_ver2
+
+
+\section{開発者向け仕様書}
+% \subsection{システム概要}
+% 開発したシステムについて説明する．本システムは，ブラウザ上で動作をする，一覧表示を主とするデータ管理システムである．機能はデータの一覧表示，各データの詳細表示，データの新規登録，編集，削除である．
+
+\subsection{1. 漫画『ニーチェが京都にやってきて17歳の私に哲学のこと教えてくれた。』(以下ニーチェ)に登場する哲学者一覧}
+
+\subsubsection{システム概要}
+本システムは,漫画『ニーチェが京都にやってきて17歳の私に哲学のこと教えてくれた。』に登場する哲学者に関して，主に漫画で取り扱った思想についてをブラウザ上で解説する一覧表示システムである．
+
+\subsubsection{目的}
+本システムの目的として，初めて哲学について触れる読者に対して漫画内で取り扱っている思想を理解する補足サイトとなることで，より哲学に興味を抱いてもらうことを掲げる．また，本システムから哲学者について触れることで漫画を読むきっかけになると考えている．
+
+\subsubsection{機能の説明}
+開発したシステムについて機能を説明する．本システムは，ブラウザ上で動作をする，一覧表示を主とするデータ管理システムである．機能はデータの一覧表示，各データの詳細表示，データの新規登録，編集，削除である．
+
+\subsubsection{データ構造}
+ニーチェのデータ構造について説明する．ニーチェで扱うデータ構造について，表\ref{table:kasu}に示す．
+
+
+\begin{table}[H]
+    \centering
+    \caption{ニーチェのデータ構造一覧}
+    \label{table:kasu}
+    \begin{tabular}{c|c|c}
+    
+    \hline
+    項目名 & 型 & 内容 \\\hline\hline
+    name & 文字列 & 登場する哲学者名\\\hline
+    birth & 数値 & 生誕年\\\hline
+    death & 数値 & 死没年\\\hline
+    intro & 文字列 & 哲学者の概要．主に漫画でのキャラ設定や提唱した思想の概要，小話など\\\hline
+    thought & 文字列 & 主な思想．特に漫画で取り扱われたものが主である\\\hline
+    book & 文字列 & 主な著作物．小説を中心に取り扱っている \\\hline
+    story & 数値 & 登場話 \\\hline
+    \end{tabular}
+\end{table}
+
+\noindent
+表示順序は漫画に登場してきた順番である，また，概要では，漫画の世界観における人物紹介や設定，現実の小話も紹介している．主な思想では，漫画で取り扱っている概念・思想を中心として紹介している．また，解説も漫画を基に初学者にもわかりやすい表現を用いている．著作物では，日本語訳がされている作品を中心として，発行年順に記載している．
+
+\subsubsection{ページ遷移}
+本システムのページ遷移について説明する．まず，本システムのページ遷移の流れについて図\ref{fig:sinitai}に示す．
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=150mm]{senni1.png}
+    \caption{ニーチェシステムのページ遷移}
+    \label{fig:sinitai}
+\end{figure}
+
+\noindent
+本システムのページの起点は「一覧表示」であり，何かしらの処理が加わった際は必ず一覧表示に戻るようにしている．一覧画面から各哲学者の名前をクリックすると「詳細画面」へ遷移する仕様となっている．また，一覧画面から「新規登録」をクリックすると新しく哲学者のデータを追加することが可能である．詳細画面ではデータの閲覧に加え，「削除」と「編集」を行うことができ，「削除」をクリックすると『本当にこの哲学者を削除してもよろしいですか？』というメッセージとともにキャンセルとOKを選択できる．キャンセルを押すと再び詳細画面へ戻り，OKを押すと削除処理が行われ一覧画面へ遷移する．また，「編集画面へ」をクリックすると選択していた哲学者のデータを編集するページへ遷移し，自由に書き換えられる．詳細画面から一覧表示への遷移は「一覧に戻る」をクリックすることで可能である．
+次に，HTTPメソッドとそのリソース名について表\ref{table:sinitai2}に示す．
+
+\begin{table}[H]
+    \centering
+    \caption{ニーチェのHTTPメソッドとリソース名及びその機能}
+    \label{table:sinitai2}
+    \begin{tabular}{c|c|c}
+    
+    \hline
+    機能 & メソッド & リソース名 \\\hline\hline
+    一覧 & GET & /manga \\\hline
+    詳細表示 & GET & /manga/:number\\\hline
+    新規登録(をクリック) & GET & /manga/create\\\hline
+    新規登録(登録ボタンを押す) & POST & /mangaへ保存される\\\hline
+    削除 & GET & /manga/delete/:number\\\hline
+    編集 & GET & /manga/edit/:number\\\hline
+    更新 & POST &  /manga/update/:number\\\hline
+    \end{tabular}
+\end{table}
+
+\noindent
+最後に，本システムで使用する各ファイルについて名前と役割を表\ref{table:sinitai3}に示す．
+
+\begin{table}[H]
+    \centering
+    \caption{ニーチェシステムの各ファイル名とその役割}
+    \label{table:sinitai3}
+    \begin{tabular}{l|p{10cm}}
+    
+    \hline
+    ファイル名 & 内容 \\ \hline\hline
+    app5.js & サーバ．全ての処理が書かれている \\ \hline
+    manga.ejs & テンプレートファイル．一覧画面．哲学者の一覧のリンクを表示する．新規登録リンクも表示 \\ \hline
+    manga\_detail.ejs & テンプレートファイル．詳細画面．特定の哲学者のデータを表示する \\ \hline
+    manga\_edit.ejs & テンプレートファイル．編集画面．ユーザが内容を書き換えられる \\ \hline
+    manga\_create.html & htmlファイル．新規登録画面．ユーザが新しい哲学者データを追加できる \\ \hline
+    manga.css & スタイルシート．全体のデザインが記入されている．表の枠線やボタンの色，配置，フォームの余白など \\ \hline
+    \end{tabular}
+\end{table}
+
+
+\subsubsection{授業外の技術}
+%後で
+授業では取り扱っていない技術についての説明と採用理由について説明する．まず，授業で取り扱った京葉線システムでは，挿入するデータがそれぞれの項目において単数で1:1対応をしていた．しかし．ニーチェシステムの主な思想は複数あり，授業内の記述方法だと見えづらくなってしまう恐れがあった．よって，本システムでは主な思想の項目のみを配列を用いて表現することとした．この際，「title」と「description」というタグを設け，
+前者には思想の名前，後者にはその思想の内容を説明している．manga\_detail.ejsでは，この部分をclassとしてtitleとdescriptionそれぞれfor文を用いて表示するように設計している．manga\_edit.ejs内においても，同様の処置を取ることにより編集が行えるようにしている．
+新規登録を行うmanga\_create.htmlにおいては，ユーザが主な思想欄にてどのようなことを入力すべきかを援助するために，placeholderを用いて薄字で「ここに理想の名前を入力」など表示するように設計した．更に，「＋別の思想を追加」ボタンを押下された場合，先に表示されているような思想，説明の枠ど同様のものが表示されるように設計を追加した．<script></script>で囲われている部分が該当箇所である．ブラウザのちょっとした処理であるためこの技術を採用した．
+また，削除処理を行う際にリンクを踏むとすぐに処理が実行されると誤って押下してしまった場合に対応できないため，onclickを使うことで確認するページを用意した．
+最後に，manga.cssの要素と実装内容について表\ref{table:ge}に示す．主に授業外の技術として追加した理由は，表として一覧性を高めることでユーザがストレスなくデータを閲覧することができる点，また背景やフォントの色を変更することでデザイン性を高め，わかりやすく可視化できる点，ボタンなど押下したことがわかるようなギミックを追加することでユーザが不安に感じることなくデータを閲覧できるようにした点が挙げられる．
+
+\begin{table}[H]
+    \centering
+    \caption{manga.cssの要素と実装内容}
+    \label{table:ge}
+    \small
+    \begin{tabularx}{\textwidth}{|l|X|}
+    
+    \hline
+    要素 & 実装内容 \\ \hline\hline
+    body,input,textarea,button,select & 全体の文字をゴシック体(sans-serif)に統一する．また，背景を淡いグレー(\#f0f0f0)に変更 \\ \hline
+    table &  表の画面幅を100\%にする．また，枠線を綺麗に表示させたり長文を書き込んでもレイアウトが崩れないように設計 \\ \hline
+    td & 表の枠線をやや濃いグレー(\#999)に設定．また，文字を読みやすいようにし，枠内での改行ができるように設計 \\ \hline
+    .philosophy-container & 「主な思想」にて余白の設定やフォントをゴシック体(sans-serif)に変更 \\ \hline
+    .philosophy-card & 主な思想の小節のレイアウトを設定している．小節内の背景は白(\#ffffff)にすることで背景に対して強調し，小節の左側を紫の線(\#6a5acd)を入れた．その他，余白の調整と間隔の変更，角を丸くするなど設計 \\ \hline
+    .philosophy-card h4 & 小節のタイトル設定．思想の名前の部分．フォントの色は濃い紫(\#4b0082)に設定し，サイズは1.25 remと若干大きめにした．他には余白を設計 \\ \hline
+    .philosophy-card p & 小節の説明の部分．行間を標準よりも1.7倍にし，文字の色をグレーがかった黒(\#444)に設定した．また，両端揃えをするように設計 \\ \hline
+    .philosophy-card & 主な思想の小節のレイアウトを設定している．小節内の背景は白(\#ffffff)にすることで背景に対して強調し，小節の左側を紫の線(\#6a5acd)を入れた．その他，余白の調整と間隔の変更，角を丸くするなど設計 \\ \hline
+    form & フォーム全体の設定．最大幅を600pxとして，文字を中央寄せに表示する．また，フォントサイズは1.1 remに設定 \\ \hline
+    .form-group & 表の要素を横並びに表示する．また，上端を揃え，入力行同士の間隔を設定 \\ \hline
+    .form-group label & ラベルの幅を固定し，文字を右寄せにする．また，フォントは太字で墨色(\#333)に設定し余白を設計 \\ \hline
+    .form-group input,.form-group textarea & フォーム内の入力欄と主な思想の入力欄についての設定．枠線は薄いグレー(\#ccc)に設定し，角のとれた枠になっている．また，余白とフォントの大きさを設計 \\ \hline
+    .section-title & 「主な思想」の文字に関する設定．太字で書くことと，余白について設定 \\ \hline
+    .common-btn & ボタンの共通設定．文字の長さに合わせて幅が決まるようにしつつ，ボタン内の余白を設定．また，カーソルを合わせると指のマークにする．枠線は濃いグレー(\#555)にしてボタンの背景は白(\#fff)としている．また，角の丸みも追加し，マウスを重ねた際に0.3sかけて色が変化するように設計\\ \hline
+    .common-btn:hover & マウスを重ねた時の変化について設定．マウスを合わせると，背景色を濃いグレー(\#555)に変更する．また，文字の色は白(\#fff)に変更される．「+別の思想を追加」ボタンなどが顕著 \\ \hline
+    .button-container & ボタンの左と下方向の余白を設定\\ \hline
+    .submit-container & 「登録」ボタンの設定．ボタンの設置場所は中央に，ボタンの上に薄いグレーの線(\#ccc)を引くことで区別化している．また余白を設計 \\ \hline
+    .submit-container .common-btn & 登録ボタンの設定．背景を濃いグレーに設定(\#555)，文字を最初から白に(\#fff)に変更．また，ボタンのサイズを拡大 \\ \hline
+    .submit-container .common-btn:hover  & 登録ボタンのマウスを合わせた際における設定．元の濃いグレーからより濃いグレー(\#222)に変化 \\ \hline
+    \end{tabularx}
+\end{table}
+
+
+\subsection{教育原理で登場する主要な教育思想家一覧(以下教育)}
+
+\subsubsection{システム概要}
+本システムは，千葉工業大学の教職課程2sで開講されている「教育原理」で登場する主要な教育思想家をブラウザ上で一覧表示するデータ管理システムである．
+
+\subsubsection{目的}
+本システムの目的として，教職課程履修者が2sで学んだ教育思想について，復習や予習のハードルを安易にすること，またこのシステムから興味を持った思想について深く学習していくきっかけとなることを掲げている．また，教職課程履修者以外の初学者に対しても，わかりやすいように表形式でまとめることで興味を持ってもらえるようにしている．
+
+\subsubsection{機能の説明}
+開発したシステムについて機能を説明する．本システムは，ブラウザ上で動作をする，一覧表示を主とするデータ管理システムである．機能はデータの一覧表示，各データの詳細表示，データの新規登録，編集，削除である．
+
+\subsubsection{データ構造}
+教育のデータ構造について説明する．教育で扱うデータ構造について，表\ref{table:kasu2}に示す．
+
+\begin{table}[H]
+    \centering
+    \caption{教育のデータ構造一覧}
+    \label{table:kasu2}
+    \begin{tabular}{c|c|c}
+    
+    \hline
+    項目名 & 型 & 内容 \\\hline\hline
+    name & 文字列 & 登場する教育思想家\\\hline
+    birth & 数値 & 生誕年\\\hline
+    death & 数値 & 死没年\\\hline
+    book & 文字列 & 主な著作物．特に教育に関する内容を抜粋して紹介している \\\hline
+    study & 文字列 & 教育への影響 \\\hline
+    key & 文字列 & 関連するキーワード \\\hline
+    \end{tabular}
+\end{table}
+
+\noindent
+表示順序は授業で紹介された教育思想家順である．また，今回取り上げていないからといって日本の教育にとって影響を及ぼしていないという意味ではなく，もっと多くの偉人のおかげで我々は公教育を享受している．本システムでは，教育原理で取り上げられた教育思想家の中で特に中枢でかつ初学者にとっても取り組みやすい人物を一部抜粋の形で取り上げている．
+関連するキーワードとは，日本の教育において重要視される思想や考え方，また著者の中で重要と考えられるキーワードを引用している．
+
+\subsubsection{ページ遷移}
+本システムのページ遷移について説明する．まず，本システムのページ遷移の流れについて図\ref{fig:kyousi}に示す．
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=150mm]{senni2.png}
+    \caption{教育システムのページ遷移}
+    \label{fig:kyousi}
+\end{figure}
+
+\noindent
+本システムのページの起点は「一覧表示」であり，何かしらの処理が加わった際は必ず一覧表示に戻るようにしている．一覧画面から各教育思想家の名前をクリックすると「詳細画面」へ遷移する仕様となっている．また，一覧画面から「新規登録」をクリックすると新しく教育思想家のデータを追加することが可能である．詳細画面ではデータの閲覧に加え，「削除」と「編集」を行うことができ，「削除」をクリックすると『本当にこの教育思想家を削除してもよろしいですか？』というメッセージとともにキャンセルとOKを選択できる．キャンセルを押すと再び詳細画面へ戻り，OKを押すと削除処理が行われ一覧画面へ遷移する．また，「編集画面へ」をクリックすると選択していた教育思想家のデータを編集するページへ遷移し，自由に書き換えられる．詳細画面から一覧表示への遷移は「一覧に戻る」をクリックすることで可能である．
+次に，HTTPメソッドとそのリソース名について表\ref{table:kyousi2}に示す．
+
+\begin{table}[H]
+    \centering
+    \caption{教育のHTTPメソッドとリソース名及びその機能}
+    \label{table:kyousi2}
+    \begin{tabular}{c|c|c}
+    
+    \hline
+    機能 & メソッド & リソース名 \\\hline\hline
+    一覧 & GET & /kyouiku \\\hline
+    詳細表示 & GET & /kyouiku/:number\\\hline
+    新規登録(をクリック) & GET & /kyouiku/create\\\hline
+    新規登録(登録ボタンを押す) & POST & /kyouikuへ保存される\\\hline
+    削除 & GET & /kyouiku/delete/:number\\\hline
+    編集 & GET & /kyouiku/edit/:number\\\hline
+    更新 & POST &  /kyouiku/update/:number\\\hline
+    \end{tabular}
+\end{table}
+
+\noindent
+最後に，本システムで使用する各ファイルについて名前と役割を表\ref{table:kyousi3}に示す．
+
+\begin{table}[H]
+    \centering
+    \caption{教育システムの各ファイル名とその役割}
+    \label{table:kyousi3}
+    \begin{tabular}{l|p{10cm}}
+    
+    \hline
+    ファイル名 & 内容 \\ \hline\hline
+    app5.js & サーバ．全ての処理が書かれている \\ \hline
+    kyouiku.ejs & テンプレートファイル．一覧画面．教育思想家の一覧のリンクを表示する．新規登録リンクも表示 \\ \hline
+    kyouiku\_detail.ejs & テンプレートファイル．詳細画面．特定の教育思想家のデータを表示する \\ \hline
+    kyouiku\_edit.ejs & テンプレートファイル．編集画面．ユーザが内容を書き換えられる \\ \hline
+    kyouiku\_create.html & htmlファイル．新規登録画面．ユーザが新しい哲学者データを追加できる \\ \hline
+    kyouiku.css & スタイルシート．全体のデザインが記入されている．表の枠線やボタンの色，配置，フォームの余白など \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{授業外の技術}
+
+授業では取り扱っていない技術についての説明と採用理由について説明する．本システムは，大部分が授業内で扱った技術で構成されているが，前述したニーチェシステムと同様に
+削除処理を行う際にリンクを踏むとすぐに処理が実行されると誤って押下してしまった場合に対応できないため，onclickを使うことで確認するページを用意している．
+また，kyouiku.cssの要素と実装内容について表\ref{table:risuka}に示す．
+
+
+\begin{table}[H]
+    \centering
+    \caption{kyouiku.cssの要素と実装内容}
+    \label{table:risuka}
+    \small
+    \begin{tabularx}{\textwidth}{|l|X|}
+    
+    \hline
+    要素 & 実装内容 \\ \hline\hline
+    body,input,textarea,button,select & 全体の文字をゴシック体(sans-serif)に統一する．また，背景を淡いグレー(\#f0f0f0)に変更 \\ \hline
+    table &  表の画面幅を100\%にする．また，枠線を綺麗に表示させたり長文を書き込んでもレイアウトが崩れないように設計 \\ \hline
+    td & 表の枠線をやや濃いグレー(\#999)に設定．また，文字を読みやすいようにし，枠内での改行ができるように設計 \\ \hline
+    form & フォーム全体の設定．最大幅を600pxとして，文字を中央寄せに表示する．また，フォントサイズは1.1 remに設定 \\ \hline
+    .form-group & 表の要素を横並びに表示する．また，上端を揃え，入力行同士の間隔を設定 \\ \hline
+    .form-group label & ラベルの幅を固定し，文字を右寄せにする．また，フォントは太字で墨色(\#333)に設定し余白を設計 \\ \hline
+    .form-group input,.form-group textarea & フォーム内の入力欄についての設定．枠線は薄いグレー(\#ccc)に設定し，角のとれた枠になっている．また，余白とフォントの大きさを設計 \\ \hline
+    .common-btn & ボタンの共通設定．文字の長さに合わせて幅が決まるようにしつつ，ボタン内の余白を設定．また，カーソルを合わせると指のマークにする．枠線は濃いグレー(\#555)にしてボタンの背景は白(\#fff)としている．また，角の丸みも追加し，マウスを重ねた際に0.3sかけて色が変化するように設計\\ \hline
+    .common-btn:hover & マウスを重ねた時の変化について設定．マウスを合わせると，背景色を濃いグレー(\#555)に変更する．また，文字の色は白(\#fff)に変更される． \\ \hline
+    .button-container & ボタンの左と下方向の余白を設定\\ \hline
+    .submit-container & 「登録」ボタンの設定．ボタンの設置場所は中央に，ボタンの上に薄いグレーの線(\#ccc)を引くことで区別化している．また余白を設計 \\ \hline
+    .submit-container .common-btn & 登録ボタンの設定．背景を濃いグレーに設定(\#555)，文字を最初から白に(\#fff)に変更．また，ボタンのサイズを拡大 \\ \hline
+    .submit-container .common-btn:hover  & 登録ボタンのマウスを合わせた際における設定．元の濃いグレーからより濃いグレー(\#222)に変化 \\ \hline
+    \end{tabularx}
+\end{table}
+
+\subsection{佐藤の推しキャラの一覧(以下美少女)}
+\subsubsection{システム概要}
+本システムは，著者である佐藤が推している二次元美少女(ないしそれに準ずる存在)の人物紹介をブラウザ上で一覧表示するデータ管理システムである．
+
+\subsubsection{目的}
+本システムの目的として，佐藤の推しを知ってもらうことで布教およびそのキャラクターのグッズを譲渡してもらうことを掲げている．また，所持しているグッズの数を視覚化することでグッズ等にお金を使いすぎていることを自覚するとともに，この程度しか経済を回していないという危機感を持つことができると考えられる．なお，紹介する二次元美少女は抜粋して特に思い入れのあるキャラに限定しているため，紹介していない二次元美少女は推していないという意味ではないことに留意してほしい．
+
+\subsubsection{機能の説明}
+開発したシステムについて機能を説明する．本システムは，ブラウザ上で動作をする，一覧表示を主とするデータ管理システムである．機能はデータの一覧表示，各データの詳細表示，データの新規登録，編集，削除である．
+
+\subsubsection{データ構造}
+美少女のデータ構造について説明する．美少女で扱うデータ構造について表\ref{table:kasu3}に示す．
+
+\begin{table}[H]
+    \centering
+    \caption{美少女のデータ構造一覧}
+    \label{table:kasu3}
+    \begin{tabular}{c|c|c}
+    
+    \hline
+    項目名 & 型 & 内容 \\\hline\hline
+    name & 文字列 & 人物名\\\hline
+    month & 数値 & 生誕月\\\hline
+    day & 数値 & 生誕日\\\hline
+    sintyou & 数値 & 身長 \\\hline
+    taijuu &  数値 & 体重 \\\hline
+    ti & 文字列 & 血液型 \\\hline
+    seiza & 文字列 & 星座 \\\hline
+    anime & 文字列 & 登場する作品名 \\\hline
+    belong & 文字列 & 所属 \\\hline
+    intro & 文字列 & 人物紹介 \\\hline
+    family & 文字列 & 家族構成 \\\hline
+    hobby & 文字列 & 趣味 \\\hline
+    skill & 文字列 & 特技 \\\hline
+    like & 文字列 & 好物 \\\hline
+    cast & 文字列 & 声優 \\\hline
+    akusuta & 数値 & 所持しているアクリルスタンド数 \\\hline
+    kanba & 数値 & 所持している缶バッチ数 \\\hline
+    key & 数値 & 所持しているキーホルダー全般 \\\hline
+    posuta & 数値 & 所持しているポスター \\\hline
+    fig & 数値 & 所持しているフィギュア \\\hline
+
+    \end{tabular}
+\end{table}
+
+グッズに関しては数えるのが簡単である物を選別した．クリアファイルなどは様々な所で使用しているため，正確な個数が測定できないと判断し今回は除外している．
+また，身長や体重などが公式から発表されていない項目においては0か-を記入している．
+
+\subsubsection{ページ遷移}
+本システムのページ遷移について説明する．まず，本システムのページ遷移の流れについて図\ref{fig:si}に示す．
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=150mm]{senni3.png}
+    \caption{美少女システムのページ遷移}
+    \label{fig:si}
+\end{figure}
+
+\noindent
+本システムのページの起点は「一覧表示」であり，何かしらの処理が加わった際は必ず一覧表示に戻るようにしている．一覧画面から各推しキャラの名前をクリックすると「詳細画面」へ遷移する仕様となっている．また，一覧画面から「新規登録」をクリックすると新しく推しのデータを追加することが可能である．詳細画面ではデータの閲覧に加え，「削除」と「編集」を行うことができ，「削除」をクリックすると『本当にこの美少女を削除してもよろしいですか？』というメッセージとともにキャンセルとOKを選択できる．キャンセルを押すと再び詳細画面へ戻り，OKを押すと削除処理が行われ一覧画面へ遷移する．また，「編集画面へ」をクリックすると選択していた美少女のデータを編集するページへ遷移し，自由に書き換えられる．詳細画面から一覧表示への遷移は「一覧に戻る」をクリックすることで可能である．
+次に，HTTPメソッドとそのリソース名について表\ref{table:si2}に示す．
+
+\begin{table}[H]
+    \centering
+    \caption{美少女のHTTPメソッドとリソース名及びその機能}
+    \label{table:si2}
+    \begin{tabular}{c|c|c}
+    
+    \hline
+    機能 & メソッド & リソース名 \\\hline\hline
+    一覧 & GET & /bisyoujo \\\hline
+    詳細表示 & GET & /bisyoujo/:number\\\hline
+    新規登録(をクリック) & GET & /bisyoujo/create\\\hline
+    新規登録(登録ボタンを押す) & POST & /bisyoujoへ保存される\\\hline
+    削除 & GET & /bisyoujo/delete/:number\\\hline
+    編集 & GET & /bisyoujo/edit/:number\\\hline
+    更新 & POST &  /bisyoujo/update/:number\\\hline
+    \end{tabular}
+\end{table}
+
+\noindent
+最後に，本システムで使用する各ファイルについて名前と役割を表\ref{table:si3}に示す．
+
+\begin{table}[H]
+    \centering
+    \caption{美少女システムの各ファイル名とその役割}
+    \label{table:si3}
+    \begin{tabular}{l|p{10cm}}
+    
+    \hline
+    ファイル名 & 内容 \\ \hline\hline
+    app5.js & サーバ．全ての処理が書かれている \\ \hline
+    bisyoujo.ejs & テンプレートファイル．一覧画面．美少女の一覧のリンクを表示する．新規登録リンクも表示 \\ \hline
+    bisyoujo\_detail.ejs & テンプレートファイル．詳細画面．特定の美少女のデータを表示する \\ \hline
+    bisyoujo\_edit.ejs & テンプレートファイル．編集画面．ユーザが内容を書き換えられる \\ \hline
+    bisyoujo\_create.html & htmlファイル．新規登録画面．ユーザが新しい美少女データを追加できる \\ \hline
+    bisyoujo.css & スタイルシート．全体のデザインが記入されている．表の枠線やボタンの色，配置，フォームの余白など \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{授業外の技術}
+
+\subsubsection{授業外の技術}
+
+授業では取り扱っていない技術についての説明と採用理由について説明する．本システムは，大部分が授業内で扱った技術で構成されているが，前述したニーチェシステム,教育システムと同様に
+削除処理を行う際にリンクを踏むとすぐに処理が実行されると誤って押下してしまった場合に対応できないため，onclickを使うことで確認するページを用意している．
+また，bisyoujo.cssの要素と実装内容について表\ref{table:risuke}に示す．
+
+
+\begin{table}[H]
+    \centering
+    \caption{bisyoujo.cssの要素と実装内容}
+    \label{table:risuke}
+    \small
+    \begin{tabularx}{\textwidth}{|l|X|}
+    
+    \hline
+    要素 & 実装内容 \\ \hline\hline
+    body,input,textarea,button,select & 全体の文字をゴシック体(sans-serif)に統一する．また，背景を淡いグレー(\#f0f0f0)に変更 \\ \hline
+    table &  表の画面幅を100\%にする．また，枠線を綺麗に表示させたり長文を書き込んでもレイアウトが崩れないように設計 \\ \hline
+    td & 表の枠線をやや濃いグレー(\#999)に設定．また，文字を読みやすいようにし，枠内での改行ができるように設計 \\ \hline
+    form & フォーム全体の設定．最大幅を600pxとして，文字を中央寄せに表示する．また，フォントサイズは1.1 remに設定 \\ \hline
+    .form-group & 表の要素を横並びに表示する．また，上端を揃え，入力行同士の間隔を設定 \\ \hline
+    .form-group label & ラベルの幅を固定し，文字を右寄せにする．また，フォントは太字で墨色(\#333)に設定し余白を設計 \\ \hline
+    .form-group input,.form-group textarea & フォーム内の入力欄についての設定．枠線は薄いグレー(\#ccc)に設定し，角のとれた枠になっている．また，余白とフォントの大きさを設計 \\ \hline
+    .common-btn & ボタンの共通設定．文字の長さに合わせて幅が決まるようにしつつ，ボタン内の余白を設定．また，カーソルを合わせると指のマークにする．枠線は濃いグレー(\#555)にしてボタンの背景は白(\#fff)としている．また，角の丸みも追加し，マウスを重ねた際に0.3sかけて色が変化するように設計\\ \hline
+    .common-btn:hover & マウスを重ねた時の変化について設定．マウスを合わせると，背景色を濃いグレー(\#555)に変更する．また，文字の色は白(\#fff)に変更される． \\ \hline
+    .button-container & ボタンの左と下方向の余白を設定\\ \hline
+    .submit-container & 「登録」ボタンの設定．ボタンの設置場所は中央に，ボタンの上に薄いグレーの線(\#ccc)を引くことで区別化している．また余白を設計 \\ \hline
+    .submit-container .common-btn & 登録ボタンの設定．背景を濃いグレーに設定(\#555)，文字を最初から白に(\#fff)に変更．また，ボタンのサイズを拡大 \\ \hline
+    .submit-container .common-btn:hover  & 登録ボタンのマウスを合わせた際における設定．元の濃いグレーからより濃いグレー(\#222)に変化 \\ \hline
+    \end{tabularx}
+\end{table}
+
+
+\section{管理者向け仕様書}
+
+\subsection{概要}
+本節では，開発したブラウザ上に一覧表示を主としたデータ管理システムを管理者として運用するための方法について説明する．
+
+\subsection{目的}
+本システムの目的は，「漫画：ニーチェに登場する哲学者」「教育原理に登場する教育思想家」「佐藤の推しキャラ」の３つのテーマを軸とした，データの閲覧およびそれに伴う編集，削除，新規登録を行うサービスの提供である．
+
+\subsection{システム概要}
+まず，本システムに共通するページ遷移の流れをニーチェシステムのページ遷移図\ref{fig:sinitai}を使用して説明する．
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=150mm]{senni1.png}
+    \caption{ニーチェシステムのページ遷移}
+    \label{fig:sinitai}
+\end{figure}
+
+\noindent
+図\ref{fig:sinitai}に示したようなページ遷移をその他のシステム「教育システム」「美少女システム」も行う．
+ページの起点は「一覧表示」であり，何かしらの処理が加わった際は必ず一覧表示に戻るようにしている．一覧画面から各人物名の名前をクリックすると「詳細画面」へ遷移する仕様となっている．また，一覧画面から「新規登録」をクリックすると新しくデータを追加することが可能である．詳細画面ではデータの閲覧に加え，「削除」と「編集」を行うことができ，「削除」をクリックすると『本当にこの〇〇を削除してもよろしいですか？』というメッセージとともにキャンセルとOKを選択できる．キャンセルを押すと再び詳細画面へ戻り，OKを押すと削除処理が行われ一覧画面へ遷移する．また，「編集画面へ」をクリックすると選択していたデータを編集するページへ遷移し，自由に書き換えられる．詳細画面から一覧表示への遷移は「一覧に戻る」をクリックすることで可能である．
+相違点としては，リソース名で，ニーチェシステムの場合は/manga,教育システムの場合は/kyouiku,そして美少女システムの場合は/bisyoujoと区別している．また，この部分以外のリソース名は一致しているため,たとえば新規登録を行うリソース名ならばニーチェシステムの場合は/manga/create，教育システムの場合は/kyouiku/createと対応している．その他，ファイル名も同様である．
+ページ遷移，リソース名，またHTTPメソッド名を統一することにより，共通の認識で管理を行いやすく設定している．
+
+\subsection{運用方法}
+本システムの運用方法について説明する．利用環境はMacbookproを想定している．まず，本レポート冒頭で示したGitHubのリンクからapp5.js,public,viewsを端末に保存し，任意のディレクトリに移行する．仮にここでは，webpro\_06というディレクトリに移行したとする．
+続いてターミナルを開き，以下のコマンド\ref{sisutemu}を入力する．
+
+\begin{figure}[H]
+    \begin{lstlisting}[caption=システムの運用方法, label=sisutemu, language=bash, basicstyle=\ttfamily, frame=single, breaklines=false, columns=fullflexible]
+satousuzuna@satouryousainoMacBook-Pro ~ % cd webpro_06
+satousuzuna@satouryousainoMacBook-Pro webpro_06 % npm install express ejs
+satousuzuna@satouryousainoMacBook-Pro webpro_06 % node app5.js
+    \end{lstlisting}
+\end{figure}
+
+\noindent
+本システムを使う際に必要なライブラリをインストールした後，サーバを起動しChromeなどブラウザにて「http://localhost:8080/manga」と入力するとニーチェシステムが作動し，最後のリソース名を「/kyouiku」にすると教育システムに，「/bisyoujo」と変更すると美少女システムに切り替わる．
+サーバを閉じる場合はターミナルにてCtrl+Cで停止する．
+
+\subsection{エラー処理}
+本システムで想定されるエラーとそれに伴う対処について説明する．
+まず，ブラウザにてurlを入力しても本システムに繋がらず「このサイトにアクセスできません」と表示される場合はサーバを立ち上げていない可能性がある．ターミナルに戻り，nodeというコマンドでapp5.jsを立ち上げているか確認する．また，サーバを立ち上げているのにも関わらず本システムにアクセスできない場合は，反対にurlのリンクが正しく入力できていない可能性がある．「Cannot GET」など画面に表示された場合は先程打ったurlを確認する．
+更に，特にユーザが直接入力できる編集機能について，もし指定した詳細表示のリンクが間違っている場合は，「指定された〇〇が見つかりません．」というメッセージとともに404コードが表示されるようにしている，この場合，もう一度サーバを再起動し正しいurlを入力しているか確認し，必要ならばapp5.js内の詳細画面について記しているコードの打ち間違いおよびdetail,ejsファイルを確認する．また，新規登録をする際に未記入のまま登録ボタンを押すと「このフィールドを入力してください」という注意文が表示される．しっかりと全項目文字や数字を入れてボタンを押すこと．
+
+
+
+\section{利用者向け仕様書}
+
+\subsection{システム概要}
+本システムは，Chromeなどのブラウザにurlを入力すると，データの一覧表示がされるシステムである．表示されるデータは漫画『ニーチェが京都にやってきて17歳の私に哲学のこと教えてくれた。』に登場する哲学者についての紹介やその哲学者の思想に関してである．
+本節では，その機能と操作方法について説明する．
+
+\subsection{目的}
+本システムの目的として，初めて哲学について触れる読者に対して漫画内で取り扱っている思想を理解する補足サイトとなることで，より哲学に興味を抱いてもらうことを掲げる．また，本システムから哲学者について触れることで漫画を読むきっかけになると考えている．
+
+
+\subsection{機能の説明}
+本システムは，ブラウザ上で動作をする，一覧表示を主とするデータ管理システムである．表示するデータは漫画：ニーチェに登場する哲学者の人物紹介や著作物，主に漫画で取り扱われた思想や概念である．
+具体的な機能はデータの一覧表示，各データの詳細表示，データの新規登録，編集，削除である．
+
+
+\subsection{操作方法}
+ニーチェシステムを利用するための手順について説明する．
+はじめに，図\ref{fig:sono1}のようにChromeブラウザを開きurl:http://localhost:8080/mangaを入力する．
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=100mm]{sono1.pdf}
+    \caption{ニーチェシステムへのアクセス方法}
+    \label{fig:sono1}
+\end{figure}
+
+
+
+\noindent
+すると，図\ref{fig:sono2}のように本システムの一覧画面が端末上に表示される．
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=100mm]{sono2.pdf}
+    \caption{ニーチェシステムの一覧画面}
+    \label{fig:sono2}
+\end{figure}
+
+\noindent
+次に，表示されている哲学者の名前にカーソルを持っていきクリックするとその哲学者についての詳細データが確認できる．具体例として，ニーチェの詳細画面の様子を図\ref{fig:sono3}に示す．
+図\ref{fig:sono3}よりニーチェの名前，生誕年，死没年，概要，著作物，登場話，そして主な思想が閲覧できる，主な思想については，紫で思想や概念の名前を表示し，その下に解説がなされている．
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=100mm]{sono3.pdf}
+    \caption{ニーチェシステムの詳細画面}
+    \label{fig:sono3}
+\end{figure}
+
+\noindent
+また，詳細画面から元の一覧画面に戻るためには，図\ref{fig:sono41}のように詳細画面をスクロールし一番下の「一覧に戻る」をクリックすることで戻ることができる．
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=100mm]{sono41.pdf}
+    \caption{ニーチェシステムの詳細画面から一覧画面へ戻る方法}
+    \label{fig:sono41}
+\end{figure}
+
+\noindent
+更に，詳細画面の一番下にある「削除」を選択する(図\ref{fig:sono42})と，図\ref{fig:sono43}のように表示される．ここで，選択した哲学者(具体例ならばニーチェ)を本当に削除したい場合は
+OKボタンを押下すると選択された哲学者が削除され，誤って削除をクリックした場合はキャンセルを押下すると詳細画面に戻る．
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=100mm]{sono42.pdf}
+    \caption{ニーチェシステムの削除をするリンク}
+    \label{fig:sono41}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=100mm]{sono41.pdf}
+    \caption{ニーチェシステムの削除を選択する画面}
+    \label{fig:sono41}
+\end{figure}
+
+
+\noindent
+そして，同じく詳細画面の一番下にある「編集画面へ」をクリックすると(図\ref{fig:sono44})，図\ref{fig:sono45}のような画面に切り替わり，編集をすることが可能である．
+また，図\ref{fig:sono46}のように，主な思想に関しては編集を行うことができる．
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=100mm]{sono44.pdf}
+    \caption{ニーチェシステムの編集画面を選択するリンク}
+    \label{fig:sono44}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=100mm]{sono45.pdf}
+    \caption{ニーチェシステムの編集をする画面(表)}
+    \label{fig:sono45}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=100mm]{sono46.pdf}
+    \caption{ニーチェシステムの編集をする画面(主な思想)}
+    \label{fig:sono46}
+\end{figure}
+
+\noindent
+また，編集後は図\ref{fig:sono47}のように編集画面の一番下にある登録ボタンを押すことでページが更新される．また，編集をやめる場合は一覧に戻るを押すと中止することができる．
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=100mm]{sono47.pdf}
+    \caption{ニーチェシステムの編集を登録する画面}
+    \label{fig:sono47}
+\end{figure}
+
+最後に，新規登録の方法について説明する．新規登録をするには，まず一覧画面の左下にある「新規登録」のリンクをクリックすると図\ref{fig:sonono1}のような新規登録画面が表示される．
+また，主な思想を追加したい場合は「＋別の思想を追加」ボタンを押下するとタブが下に追加され記入することができる．
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=100mm]{sonono1.pdf}
+    \caption{ニーチェシステムの新規登録を行う画面}
+    \label{fig:sonono1}
+\end{figure}
+
+
+\end{document}

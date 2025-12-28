@@ -191,6 +191,34 @@ other | 文字列 | 間違い探しの解答
     
 ```
 
+```mermaid
+
+   graph LR
+    
+    Start((開始)) --> List[一覧表示:/manga]
+
+    subgraph ニーチェシステム
+        List --> Create[新規登録 /manga/create]
+        List --> Detail[詳細表示 /manga/:number]
+        
+        Create -->|登録| List
+        
+        Detail --> Edit[編集画面 /manga/edit/:number]
+        Edit -->|更新 /manga/update/:number| List
+        
+        %% 削除の条件分岐
+        Detail --> DeleteBtn{削除ボタン}
+        DeleteBtn -->|Yes| Exec[削除処理 /manga/delete/:number]
+        DeleteBtn -->|No| Detail
+        
+        Exec --> List
+    end
+
+    
+    Detail -->|戻る| List
+```
+    
+
 具体的なメソッド名やリソース名に関して，現在検討中であるため割愛する．
 
 
