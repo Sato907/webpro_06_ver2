@@ -1,0 +1,53 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title><%= data.name  %></title>
+  <link rel="stylesheet" href="/manga.css">
+  <style>
+    .portrait-box { text-align: center; margin: 16px 0; }
+    .portrait { max-width: 240px; width: 100%; height: auto; border: 1px solid #b9b9c6; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,.15); }
+    .portrait-cap { display: block; margin-top: 6px; color: #666; font-size: 14px; }
+    a.work-link { color: #1a5fb4; text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <h2><%= data.name %>の詳細</h2>
+
+  <%# ▼▼ 追加：自画像／肖像画。画像が無い場合は NO IMAGE を表示 ▼▼ %>
+  <div class="portrait-box">
+    <img class="portrait"
+         src="<%= data.img ? data.img : '/images/manga/' + name + '.jpg' %>"
+         alt="<%= data.name %>の肖像"
+         onerror="this.onerror=null; this.src='/images/no_image.svg';">
+    <span class="portrait-cap"><%= data.name %></span>
+  </div>
+
+  <table>
+    <tr><th>項目</th><th>データ</th></tr>
+    <%# ▼▼ 人名を日本語Wikipediaにリンク ▼▼ %>
+    <tr><td>登場人物</td><td><a class="work-link" href="https://ja.wikipedia.org/wiki/<%= encodeURIComponent(data.name) %>" target="_blank" rel="noopener"><%= data.name %></a></td></tr>
+    <tr><td>生誕</td><td><%= data.birth %></td></tr>
+    <tr><td>死没</td><td><%= data.death %></td></tr>
+    <tr><td>概要</td><td><%= data.intro %></td></tr>
+    <%# ▼▼ 著作物を『』ごとに日本語Wikipediaにリンク ▼▼ %>
+    <tr><td>著作物</td><td><%- data.book.replace(/『([^』]+)』/g, function(m, t){ return '<a class="work-link" href="https://ja.wikipedia.org/wiki/' + encodeURIComponent(t) + '" target="_blank" rel="noopener">『' + t + '』</a>'; }) %></td></tr>
+    <tr><td>登場話</td><td><%= data.story %></td></tr>
+</table>
+<div class="philosophy-container">
+    <h3>主な思想</h3>
+    <% for( let item of data.thoughts ) { %>
+        <section class="philosophy-card">
+          <h4><%= item.title %></h4>
+          <p><%= item.description %></p>
+        </section>
+    <% } %>
+
+</div>
+  <a href="/manga">一覧に戻る</a>
+  <a href="/manga/delete/<%= name %>" onclick="return confirm('本当にこの哲学者を削除してもよろしいですか？');">
+    削除
+  </a>
+  <a href="/manga/edit/<%= name %>">編集画面へ</a>
+</body>
+</html>

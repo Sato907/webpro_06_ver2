@@ -1,0 +1,57 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title><%= data.name  %></title>
+  <link rel="stylesheet" href="/bisyoujo.css">
+  <style>
+    .portrait-box { text-align: center; margin: 16px 0; }
+    .portrait { max-width: 240px; width: 100%; height: auto; border: 1px solid #b9b9c6; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,.15); }
+    .portrait-cap { display: block; margin-top: 6px; color: #666; font-size: 14px; }
+    a.work-link { color: #c0398b; text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <h2><%= data.name %>の詳細</h2>
+
+  <%# ▼▼ 追加：キャラクター画像。画像が無い場合は NO IMAGE を表示 ▼▼ %>
+  <div class="portrait-box">
+    <img class="portrait"
+         src="<%= data.img ? data.img : '/images/bisyoujo/' + name + '.jpg' %>"
+         alt="<%= data.name %>の画像"
+         onerror="this.onerror=null; this.src='/images/no_image.svg';">
+    <span class="portrait-cap"><%= data.name %></span>
+  </div>
+
+  <table>
+    <tr><th>項目</th><th>データ</th></tr>
+    <%# ▼▼ 人名を日本語Wikipediaにリンク ▼▼ %>
+    <tr><td>人物</td><td><a class="work-link" href="https://ja.wikipedia.org/wiki/<%= encodeURIComponent(data.name) %>" target="_blank" rel="noopener"><%= data.name %></a></td></tr>
+    <tr><td>生誕月</td><td><%= data.month %></td></tr>
+    <tr><td>生誕日</td><td><%= data.day %></td></tr>
+    <tr><td>身長</td><td><%= data.sintyou %></td></tr>
+    <tr><td>体重</td><td><%= data.taijuu %></td></tr>
+    <tr><td>血液型</td><td><%= data.ti %></td></tr>
+    <tr><td>星座</td><td><%= data.seiza %></td></tr>
+    <%# ▼▼ 作品名を作品の公式HPにリンク（linkが無ければプレーン表示） ▼▼ %>
+    <tr><td>作品名</td><td><% if (data.link) { %><a class="work-link" href="<%= data.link %>" target="_blank" rel="noopener"><%= data.anime %></a><% } else { %><%= data.anime %><% } %></td></tr>
+    <tr><td>所属</td><td><%= data.belong %></td></tr>
+    <tr><td>人物紹介</td><td><%= data.intro %></td></tr>
+    <tr><td>家族構成</td><td><%= data.family %></td></tr>
+    <tr><td>趣味</td><td><%= data.hobby %></td></tr>
+    <tr><td>特技</td><td><%= data.skill %></td></tr>
+    <tr><td>好物</td><td><%= data.like %></td></tr>
+    <tr><td>声優</td><td><%= data.cast %></td></tr>
+    <tr><td>所持しているアクリルスタンド</td><td><%= data.akusuta %></td></tr>
+    <tr><td>所持している缶バッチ数</td><td><%= data.kanba %></td></tr>
+    <tr><td>所持しているキーホルダー全般</td><td><%= data.key %></td></tr>
+    <tr><td>所持しているポスター</td><td><%= data.posuta %></td></tr>
+    <tr><td>所持しているフィギュア</td><td><%= data.fig %></td></tr>
+</table>
+  <a href="/bisyoujo">一覧に戻る</a>
+  <a href="/bisyoujo/delete/<%= name %>" onclick="return confirm('本当にこの美少女を削除してもよろしいですか？');">
+    削除
+  </a>
+  <a href="/bisyoujo/edit/<%= name %>">編集画面へ</a>
+</body>
+</html>
