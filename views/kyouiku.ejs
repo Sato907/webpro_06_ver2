@@ -19,7 +19,10 @@
       <% } %>
   </table>
   <a href="/kyouiku/create">新規登録</a>
-  
+  <% if (typeof sindan !== 'undefined') { %>
+    <a href="/sindan/<%= sindan %>">教育観診断をする</a>
+  <% } %>
+
 
 </body>
 </html>

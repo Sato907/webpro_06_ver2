@@ -1,0 +1,62 @@
+<!Doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title><%= cfg.title %>の結果</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: system-ui, sans-serif; background: #f6f6fb; color: #222; margin: 0; padding: 24px; }
+    .wrap { max-width: 640px; margin: 0 auto; }
+    h1 { text-align: center; color: <%= cfg.color %>; }
+    .result { background: #fff; border-radius: 16px; padding: 24px; text-align: center;
+              box-shadow: 0 4px 14px rgba(0,0,0,.12); }
+    .result .portrait { max-width: 220px; width: 100%; height: auto; border-radius: 10px;
+                        border: 1px solid #ccc; box-shadow: 0 2px 8px rgba(0,0,0,.15); }
+    .name { font-size: 26px; font-weight: bold; margin: 14px 0 6px; color: <%= cfg.color %>; }
+    .intro { text-align: left; color: #444; font-size: 14px; line-height: 1.7;
+             max-height: 8.5em; overflow: hidden; }
+    .btns { margin-top: 20px; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .btn { text-decoration: none; padding: 12px 20px; border-radius: 10px; color: #fff;
+           background: <%= cfg.color %>; }
+    .btn.alt { background: #777; }
+    .rank { background: #fff; border-radius: 12px; padding: 16px 20px; margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+    .rank h3 { margin: 0 0 10px; }
+    .rank ol { margin: 0; padding-left: 22px; }
+    .rank li { margin: 4px 0; }
+    .pt { color: #999; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>診断結果</h1>
+    <div class="result">
+      <p style="color:#888; margin:0 0 8px;">あなたにピッタリなのは…</p>
+      <img class="portrait"
+           src="<%= winner.img ? winner.img : '/images/' + category + '/' + winnerIndex + '.jpg' %>"
+           alt="<%= winner.name %>"
+           onerror="this.onerror=null; this.src='/images/no_image.svg';">
+      <div class="name"><%= winner.name %></div>
+      <p class="intro"><%= winner.intro ? winner.intro : (winner.study ? winner.study : "") %></p>
+      <div class="btns">
+        <a class="btn" href="<%= cfg.basePath %>/<%= winnerIndex %>">詳細ページを見る</a>
+        <a class="btn alt" href="/sindan/<%= category %>">もう一度診断する</a>
+      </div>
+    </div>
+
+    <% if (ranking && ranking.length > 1) { %>
+      <div class="rank">
+        <h3>相性ランキング TOP3</h3>
+        <ol>
+          <% ranking.forEach(function(r){ %>
+            <li><a href="<%= cfg.basePath %>/<%= r.index %>"><%= r.name %></a>
+                <span class="pt">（<%= r.point %>pt）</span></li>
+          <% }); %>
+        </ol>
+      </div>
+    <% } %>
+
+    <p style="text-align:center; margin-top:20px;"><a href="/sindan">← 診断トップへ</a></p>
+  </div>
+</body>
+</html>

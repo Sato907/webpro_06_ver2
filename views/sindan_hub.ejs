@@ -1,0 +1,35 @@
+<!Doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>おすすめ診断</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: system-ui, sans-serif; background: #f6f6fb; color: #222; margin: 0; padding: 24px; }
+    .wrap { max-width: 640px; margin: 0 auto; }
+    h1 { text-align: center; }
+    .cards { display: grid; gap: 16px; margin-top: 24px; }
+    .card { display: block; text-decoration: none; color: #fff; padding: 22px 24px; border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,.15); transition: transform .12s; }
+    .card:hover { transform: translateY(-3px); }
+    .card h2 { margin: 0 0 6px; font-size: 22px; }
+    .card p { margin: 0; opacity: .92; font-size: 14px; }
+    .back { display: inline-block; margin-top: 24px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>おすすめ診断</h1>
+    <p style="text-align:center;">かんたんな質問に答えて、あなたにピッタリの一人を見つけよう。</p>
+    <div class="cards">
+      <% for (const key in sindan) { const c = sindan[key]; %>
+        <a class="card" style="background: <%= c.color %>;" href="/sindan/<%= key %>">
+          <h2><%= c.title %></h2>
+          <p><%= c.subtitle %></p>
+        </a>
+      <% } %>
+    </div>
+    <a class="back" href="/manga">← 哲学者一覧へ</a>
+  </div>
+</body>
+</html>

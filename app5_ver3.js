@@ -240,7 +240,7 @@ let kyouiku = [
 // 一覧
 app.get("/manga", (req, res) => {
   // 本来ならここにDBとのやり取りが入る
-  res.render('manga', {data: nietzsche} );
+  res.render('manga', {data: nietzsche, sindan: 'manga'} );
 });
 
 // Create 新規登録
@@ -343,7 +343,7 @@ app.post("/manga/update/:number", (req, res) => {
 // 一覧
 app.get("/kyouiku", (req, res) => {
   // 本来ならここにDBとのやり取りが入る
-  res.render('kyouiku', {data: kyouiku} );
+  res.render('kyouiku', {data: kyouiku, sindan: 'kyouiku'} );
 });
 
 // Create 新規登録
@@ -433,7 +433,7 @@ app.post("/kyouiku/update/:number", (req, res) => {
 // 一覧
 app.get("/bisyoujo", (req, res) => {
   // 本来ならここにDBとのやり取りが入る
-  res.render('bisyoujo', {data: bisyoujo} );
+  res.render('bisyoujo', {data: bisyoujo, sindan: 'bisyoujo'} );
 });
 
 // Create 新規登録
@@ -666,5 +666,158 @@ app.get("/janken2", (req, res) => {
   };
   res.render( 'janken2', display );//使うのはjanken2.ejs
 });
+
+//============================================================
+// おすすめ診断（独創機能）
+//   いくつかの質問に答えると、回答内容のスコアが最も高い
+//   1人をレコメンドして詳細ページへ誘導する。
+//   既存の3データ(nietzsche / bisyoujo / kyouiku)をそのまま利用。
+//============================================================
+
+const shindan = {
+  // --- 哲学者診断 ---
+  manga: {
+    title: "あなたに合う哲学者診断",
+    subtitle: "3つの質問であなたにピッタリの哲学者がわかる",
+    list: nietzsche,
+    basePath: "/manga",
+    color: "#5a3e85",
+    questions: [
+      { q: "壁にぶつかったとき、あなたは？", options: [
+        { label: "自分の力で乗り越えてやる", scores: { "フリードリヒ・ニーチェ": 2 } },
+        { label: "まず自分の内面と向き合う",   scores: { "セーレン・オービュ・キルケゴール": 2 } },
+        { label: "期待しすぎず受け流す",       scores: { "アルトゥル・ショーペンハウアー": 2 } },
+        { label: "死を意識して“今”を見つめ直す", scores: { "マルティン・ハイデガー": 2 } },
+        { label: "挫折こそ成長の入口だと考える", scores: { "カール・ヤスパース": 2 } },
+        { label: "自由に選び、結果に責任を持つ", scores: { "ジャン=ポール・シャルル・エマール・サルトル": 2 } },
+      ]},
+      { q: "人との関わり方は？", options: [
+        { label: "群れず孤高でいたい",         scores: { "アルトゥル・ショーペンハウアー": 2, "フリードリヒ・ニーチェ": 1 } },
+        { label: "本音で深く語り合いたい",     scores: { "カール・ヤスパース": 2 } },
+        { label: "他人とは適度に距離を置く",   scores: { "ジャン=ポール・シャルル・エマール・サルトル": 2 } },
+        { label: "自分らしさを掘り下げたい",   scores: { "セーレン・オービュ・キルケゴール": 2 } },
+      ]},
+      { q: "大事にしたい価値観は？", options: [
+        { label: "常識や多数派を疑う",         scores: { "フリードリヒ・ニーチェ": 2 } },
+        { label: "流行に流されない自分の真実", scores: { "セーレン・オービュ・キルケゴール": 2 } },
+        { label: "役割に追われず本当の自分",   scores: { "マルティン・ハイデガー": 2 } },
+        { label: "苦しみを直視して強くなる",   scores: { "カール・ヤスパース": 1, "アルトゥル・ショーペンハウアー": 1 } },
+      ]},
+    ],
+  },
+
+  // --- 推し美少女診断 ---
+  bisyoujo: {
+    title: "あなたの推し美少女診断",
+    subtitle: "3つの質問であなたの“推し”が決まる",
+    list: bisyoujo,
+    basePath: "/bisyoujo",
+    color: "#c0398b",
+    questions: [
+      { q: "好きな性格のタイプは？", options: [
+        { label: "クールで有能",       scores: { "雪ノ下雪乃": 2, "井ノ上たきな": 1, "シエスタ": 1 } },
+        { label: "物静かで健気",       scores: { "香風智乃": 2, "レム": 1 } },
+        { label: "人見知りで内気",     scores: { "桜沢墨": 2 } },
+        { label: "自由奔放で型破り",   scores: { "鈴屋什造": 2 } },
+        { label: "ミステリアス",       scores: { "シエスタ": 2, "朝田詩乃": 1 } },
+      ]},
+      { q: "一緒に過ごすなら？", options: [
+        { label: "読書など知的な時間", scores: { "雪ノ下雪乃": 2, "朝田詩乃": 1 } },
+        { label: "カフェでまったり",   scores: { "香風智乃": 2, "桜沢墨": 1 } },
+        { label: "一緒に戦いたい",     scores: { "井ノ上たきな": 2, "朝田詩乃": 1, "鈴屋什造": 1 } },
+        { label: "尽くして甘えたい",   scores: { "レム": 2 } },
+      ]},
+      { q: "惹かれる属性は？", options: [
+        { label: "ツンデレ／クーデレ", scores: { "雪ノ下雪乃": 2, "朝田詩乃": 1 } },
+        { label: "妹系・癒やし",       scores: { "香風智乃": 2, "レム": 1 } },
+        { label: "お嬢様・清楚",       scores: { "桜沢墨": 2 } },
+        { label: "中性的・自由人",     scores: { "鈴屋什造": 2, "シエスタ": 1 } },
+      ]},
+    ],
+  },
+
+  // --- 教育思想家診断 ---
+  kyouiku: {
+    title: "あなたの教育観診断",
+    subtitle: "3つの質問であなたに近い教育思想家がわかる",
+    list: kyouiku,
+    basePath: "/kyouiku",
+    color: "#2a7d4f",
+    questions: [
+      { q: "子どもとの理想の関わり方は？", options: [
+        { label: "自然のまま見守りたい",       scores: { "ジャン＝ジャック・ルソー": 2 } },
+        { label: "集団生活の中で育てたい",     scores: { "ヨハン・ハインリヒ・ペスタロッチ": 2 } },
+        { label: "幅広い知識を体系的に教える", scores: { "ヨハン・フリードリヒ・ヘルバルト": 2 } },
+        { label: "経験から学ばせたい",         scores: { "ジョン・デューイ": 2 } },
+        { label: "早い時期の教育を大切に",     scores: { "澤柳政太郎": 2 } },
+        { label: "人格まるごと育てたい",       scores: { "小原國芳": 2 } },
+      ]},
+      { q: "学びの源はどこにある？", options: [
+        { label: "内側からわく興味",   scores: { "ジャン＝ジャック・ルソー": 2, "ジョン・デューイ": 1 } },
+        { label: "仲間との共同生活",   scores: { "ヨハン・ハインリヒ・ペスタロッチ": 2 } },
+        { label: "多面的な知識",       scores: { "ヨハン・フリードリヒ・ヘルバルト": 2 } },
+        { label: "夢を持つこと",       scores: { "小原國芳": 2 } },
+      ]},
+      { q: "教育で一番大事にしたいのは？", options: [
+        { label: "すべての子に平等な学び", scores: { "ヨハン・ハインリヒ・ペスタロッチ": 1, "澤柳政太郎": 1 } },
+        { label: "民主的な社会の実現",     scores: { "ジョン・デューイ": 2 } },
+        { label: "道徳的な品性",           scores: { "ヨハン・フリードリヒ・ヘルバルト": 2 } },
+        { label: "純粋な心を育てる",       scores: { "澤柳政太郎": 2, "ジャン＝ジャック・ルソー": 1 } },
+      ]},
+    ],
+  },
+};
+
+// 診断ハブ（3種類から選ぶ）診断サイト全体のHP
+app.get("/sindan", (req, res) => {
+  res.render("sindan_hub", { sindan: shindan });
+});
+
+// 質問ページ
+app.get("/sindan/:category", (req, res) => {
+  const cfg = shindan[req.params.category];
+  if (!cfg) return res.status(404).send("診断が見つかりません。");
+  res.render("sindan", { category: req.params.category, cfg: cfg });
+});
+
+// 結果ページ
+app.post("/sindan/:category", (req, res) => {
+  const category = req.params.category;
+  const cfg = shindan[category];
+  if (!cfg) return res.status(404).send("診断が見つかりません。");
+
+  // 各人物のスコアを集計
+  const score = {};
+  cfg.list.forEach((item) => { score[item.name] = 0; });
+
+  cfg.questions.forEach((question, qi) => {
+    const choice = req.body["q" + qi];          // 選ばれた選択肢の番号
+    if (choice === undefined) return;
+    const opt = question.options[Number(choice)];
+    if (!opt) return;
+    for (const name in opt.scores) {
+      if (score[name] === undefined) score[name] = 0;
+      score[name] += opt.scores[name];
+    }
+  });
+
+  // スコア順に並べてランキング化（同点は元の順番）
+  const ranking = cfg.list
+    .map((item, index) => ({ name: item.name, index: index, point: score[item.name] || 0 }))
+    .sort((a, b) => b.point - a.point);
+
+  const winner = ranking[0];
+  console.log(`[診断:${category}] 結果=${winner.name} スコア=`, score);
+
+  res.render("sindan_result", {
+    category: category,
+    cfg: cfg,
+    winnerIndex: winner.index,
+    winner: cfg.list[winner.index],
+    ranking: ranking.slice(0, 3),
+  });
+});
+
+//============================================================
 
 app.listen(8080, () => console.log("Example app listening on port 8080!"));
