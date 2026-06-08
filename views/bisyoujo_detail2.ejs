@@ -26,7 +26,7 @@
   <table>
     <tr><th>項目</th><th>データ</th></tr>
     <%# ▼▼ 人名を日本語Wikipediaにリンク ▼▼ %>
-    <tr><td>人物</td><td><a class="work-link" href="https://ja.wikipedia.org/wiki/<%= encodeURIComponent(data.name) %>" target="_blank" rel="noopener"><%= data.name %></a></td></tr>
+    <tr><td>人物</td><td><a class="work-link" href="https://dic.pixiv.net/a/<%= encodeURIComponent(data.name) %>" target="_blank" rel="noopener"><%= data.name %></a></td></tr>
     <tr><td>生誕月</td><td><%= data.month %></td></tr>
     <tr><td>生誕日</td><td><%= data.day %></td></tr>
     <tr><td>身長</td><td><%= data.sintyou %></td></tr>
