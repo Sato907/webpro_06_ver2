@@ -9,6 +9,32 @@ app.set('view engine', 'ejs');
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
+// 画像アップロード設定（編集画面でjpgを挿入できるようにする）
+const multer = require("multer");
+const fs = require("fs");
+
+// カテゴリ別に public/images/<category>/<番号>.jpg として保存するミドルウェアを返す
+function uploadFor(category) {
+  const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      const dir = `public/images/${category}`;
+      fs.mkdirSync(dir, { recursive: true });   // フォルダが無ければ作る
+      cb(null, dir);
+    },
+    filename: (req, file, cb) => {
+      // 一覧の並び順(番号)に合わせて 0.jpg, 1.jpg ... で上書き保存
+      cb(null, req.params.number + ".jpg");
+    },
+  });
+  return multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+      // jpg(jpeg)のみ受け付ける。それ以外は無視（テキストの更新は通す）
+      cb(null, file.mimetype === "image/jpeg");
+    },
+  }).single("image");
+}
+
 
 
 
@@ -304,7 +330,7 @@ app.get("/manga/edit/:number", (req, res) => {
 });
 
 // Update 更新
-app.post("/manga/update/:number", (req, res) => {
+app.post("/manga/update/:number", uploadFor("manga"), (req, res) => {
   // 本来は変更する番号が存在するか，各項目が正しいか厳重にチェックする
   // 本来ならここにDBとのやり取りが入る
   const number = req.params.number;
@@ -398,7 +424,7 @@ app.get("/kyouiku/edit/:number", (req, res) => {
 });
 
 // Update 更新
-app.post("/kyouiku/update/:number", (req, res) => {
+app.post("/kyouiku/update/:number", uploadFor("kyouiku"), (req, res) => {
   // 本来は変更する番号が存在するか，各項目が正しいか厳重にチェックする
   // 本来ならここにDBとのやり取りが入る
   const number = req.params.number;
@@ -488,7 +514,7 @@ app.get("/bisyoujo/edit/:number", (req, res) => {
 });
 
 // Update 更新
-app.post("/bisyoujo/update/:number", (req, res) => {
+app.post("/bisyoujo/update/:number", uploadFor("bisyoujo"), (req, res) => {
   // 本来は変更する番号が存在するか，各項目が正しいか厳重にチェックする
   // 本来ならここにDBとのやり取りが入る
   const number = req.params.number;

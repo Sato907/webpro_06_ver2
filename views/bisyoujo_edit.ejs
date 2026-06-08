@@ -7,9 +7,19 @@
 </head>
 <body>
   <h2><%= data.name %>の編集</h2>
-  <form action="/bisyoujo/update/<%= name %>" method="POST">
+  <form action="/bisyoujo/update/<%= name %>" method="POST" enctype="multipart/form-data">
     <table>
         <tr><th>項目</th><th>データ</th></tr>
+        <tr><td>画像(jpg)</td><td>
+          <div class="img-edit">
+            <img class="img-preview"
+                 src="/images/bisyoujo/<%= name %>.jpg"
+                 alt="現在の画像"
+                 onerror="this.onerror=null; this.src='/images/no_image.svg';">
+            <input type="file" name="image" accept="image/jpeg">
+            <p class="img-note">jpgファイルを選ぶと画像を差し替えます（未選択なら現状維持）。</p>
+          </div>
+        </td></tr>
         <tr><td>人物</td><td><input type="text" name="name" value="<%= data.name %>"></td></tr>
         <tr><td>生誕月</td><td><input type="text" name="month" value="<%= data.month %>"></td></tr>
         <tr><td>生誕日</td><td><input type="text" name="day" value="<%= data.day %>"></td></tr>
