@@ -1,0 +1,132 @@
+% =====================================================================
+%  クラウドコンピューティング(6) 課題レポート
+%  コンパイル: lualatex report.tex （app5_ver3.js と同じ階層に置くこと）
+% =====================================================================
+\documentclass[11pt,a4paper]{ltjsarticle}
+
+\usepackage{luatexja-fontspec}
+\usepackage[margin=25mm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+
+% ---- ここだけ自分の情報に書き換えてください -------------------------
+\newcommand{\studentID}{（ここに学籍番号を記入）}
+\newcommand{\studentName}{佐藤 鈴菜（氏名を漢字で記入）}
+\newcommand{\siteURL}{http://（公開IPアドレス）:8080/}
+% ---------------------------------------------------------------------
+
+% ---- ソースコード掲載の設定（JavaScript 用） ------------------------
+\definecolor{cmtgreen}{rgb}{0.0,0.5,0.0}
+\definecolor{kwblue}{rgb}{0.0,0.0,0.7}
+\definecolor{strred}{rgb}{0.6,0.1,0.1}
+\definecolor{bggray}{rgb}{0.97,0.97,0.97}
+
+\lstdefinelanguage{JavaScriptCustom}{
+  keywords={const,let,var,function,return,if,else,for,while,in,of,new,
+            require,module,exports,true,false,null,undefined,async,await},
+  ndkeywords={app,res,req,express,multer},
+  sensitive=true,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  string=[b]",
+  morestring=[b]',
+  morestring=[b]`,
+}
+
+\lstset{
+  language=JavaScriptCustom,
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{kwblue}\bfseries,
+  commentstyle=\color{cmtgreen}\itshape,
+  stringstyle=\color{strred},
+  backgroundcolor=\color{bggray},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  numbersep=8pt,
+  frame=single,
+  rulecolor=\color{gray},
+  breaklines=true,
+  breakatwhitespace=false,
+  showstringspaces=false,
+  columns=fullflexible,
+  keepspaces=true,
+  tabsize=2,
+}
+
+\begin{document}
+
+% ===================== 表紙・氏名 =====================
+\begin{center}
+  {\LARGE\bfseries クラウドコンピューティング(6) 課題レポート}\\[4mm]
+  {\large Node によるサーバー \& クライアントアプリケーションの制作}
+\end{center}
+
+\vspace{6mm}
+\begin{flushright}
+  \begin{tabular}{ll}
+    学生番号 : & \studentID \\
+    氏\hspace{1em}名 : & \studentName \\
+    提出日\hspace{0.2em} : & 2026 年 6 月 9 日 \\
+  \end{tabular}
+\end{flushright}
+
+\vspace{4mm}
+\hrule
+\vspace{6mm}
+
+% ===================== 目的 =====================
+\section{目的（何を作ろうとしたのか）}
+
+Node.js と Express を用いて、\textbf{複数の自作 Web サイトを 1 つのサーバーで束ねる
+「制作サイトまとめ」アプリケーション}を作ることを目的とした。
+トップページから各サイトへ移動でき、それぞれのサイトで一覧・詳細・登録・編集・削除
+といった一連の操作（CRUD）が行えることを目指した。具体的には次の機能を実装した。
+
+\begin{itemize}
+  \item \textbf{まとめトップページ}（\texttt{/}）：制作した各サイトへカード形式で移動できる
+        入口ページ。
+  \item \textbf{哲学者一覧サイト}（\texttt{/manga}）：漫画に登場する哲学者を題材にした
+        一覧・詳細・新規登録・編集・削除。
+  \item \textbf{教育学者一覧サイト}（\texttt{/kyouiku}）：主要な教育思想家の一覧・詳細・
+        新規登録・編集・削除。
+  \item \textbf{美少女一覧サイト}（\texttt{/bisyoujo}）：好きなキャラクターの一覧・詳細・
+        新規登録・編集・削除。
+  \item \textbf{画像アップロード機能}：新規登録・編集画面から各人物の画像（JPG）を
+        アップロードでき、詳細ページに表示される（multer を使用）。
+  \item \textbf{おすすめ診断機能}（\texttt{/sindan}）：いくつかの質問に答えると、3 種類の
+        テーマ（哲学者・教育学者・美少女）それぞれで「自分に合う一人」を判定し、
+        相性ランキングを表示する診断サイト。
+\end{itemize}
+
+加えて、全ページのデザインを統一し（グラデーション背景・カード型 UI・ボタン形式の
+ナビゲーション）、使いやすく見栄えのする Web アプリケーションにすることを狙った。
+
+% ===================== アクセスリンク =====================
+\section{アクセスできるリンク}
+
+下記 URL からブラウザでアクセスできる。
+
+\begin{quote}
+  \large \url{\siteURL}
+\end{quote}
+
+トップページから各サイト（哲学者・教育学者・美少女・おすすめ診断）へ移動できる。
+
+% ===================== オリジナリティ =====================
+\section{オリジナリティについて}
+
+本課題は\textbf{すべて個人で制作したオリジナル作品}である。
+題材の選定、扱うデータ（各人物の情報）、ページ構成、デザイン、診断ロジック、
+画像アップロード機能などをすべて自分で設計・実装した。
+共同開発ではなく、クライアントサイド・サーバーサイドともに自分一人で担当した。
+
+% ===================== ソースコード =====================
+\section{サーバー側プログラム（ソースコード）}
+
+サーバー側のプログラム \texttt{app5\_ver3.js} を以下に添付する。
+処理の要所には日本語でコメントを記している。
+
+\lstinputlisting[language=JavaScriptCustom]{app5_ver3.js}
+
+\end{document}
