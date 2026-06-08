@@ -1,33 +1,83 @@
 <!Doctype html>
-<html>
+<html lang="ja">
 <head>
   <meta charset="utf-8">
-  <title>ニーチェの登場人物一覧</title>
+  <title>哲学者一覧</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/manga.css">
-</head>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      --c: #6c5ce7;
+      font-family: "Helvetica Neue", system-ui, sans-serif;
+      color: #1d1d2b; margin: 0; min-height: 100vh; padding: 56px 24px;
+      background: radial-gradient(1200px 600px at 50% -10%, #ffffff, #efeefb 60%, #e6e3f6 100%);
+    }
+    .wrap { max-width: 880px; margin: 0 auto; }
+    .hero { text-align: center; margin-bottom: 40px; }
+    .hero .eyebrow { display: inline-block; font-size: 12px; letter-spacing: .28em;
+                     color: #8a87a6; text-transform: uppercase; margin-bottom: 14px; }
+    .hero h1 { margin: 0; font-size: 36px; font-weight: 800; letter-spacing: .02em;
+               background: linear-gradient(90deg, var(--c), color-mix(in srgb, var(--c) 55%, #e84393));
+               -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero .bar { width: 64px; height: 4px; border-radius: 4px; margin: 18px auto 16px;
+                 background: linear-gradient(90deg, var(--c), color-mix(in srgb, var(--c) 55%, #e84393)); }
+    .hero .lead { color: #5d5b73; margin: 0 auto; max-width: 620px; font-size: 14.5px; line-height: 1.7; }
+
+    .name-list { list-style: none; padding: 0; margin: 0;
+                 display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; }
+    .name-card {
+      position: relative; overflow: hidden; display: flex; flex-direction: column;
+      text-decoration: none; color: #fff; padding: 22px 22px 18px; border-radius: 16px;
+      min-height: 132px; border-left: none;
+      background: linear-gradient(140deg, var(--c), color-mix(in srgb, var(--c) 60%, #1a1a2e));
+      box-shadow: 0 10px 22px rgba(31,27,60,.16);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .name-card::before { content: ""; position: absolute; top: -44px; right: -44px;
+                         width: 130px; height: 130px; border-radius: 50%;
+                         background: rgba(255,255,255,.15); transition: transform .35s ease; }
+    .name-card:hover { transform: translateY(-6px); box-shadow: 0 18px 34px rgba(31,27,60,.28); background: linear-gradient(140deg, var(--c), color-mix(in srgb, var(--c) 60%, #1a1a2e)); }
+    .name-card:hover::before { transform: scale(1.25); }
+    .name-card .num { position: absolute; top: 14px; right: 18px; font-size: 30px; font-weight: 800;
+                      color: rgba(255,255,255,.26); line-height: 1; }
+    .name-card .name-text { position: relative; font-size: 19px; font-weight: 700; }
+    .name-card .cta { position: relative; margin-top: auto; padding-top: 14px; font-size: 12.5px;
+                      font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+    .name-card .arrow { transition: transform .18s ease; color: #fff; font-size: inherit; }
+    .name-card:hover .arrow { transform: translateX(4px); }
+  </style>
 </head>
 <body>
-  <h2>漫画「ニーチェが京都にやってきて17歳の私に哲学のことを教えてくれた。」の登場人物一覧</h2>
-  <ul class="name-list">
-    <% let number = 0 %>
-    <% for( let row of data ) { %>
-      <li>
-        <a class="name-card" href="/manga/<%= number %>">
-          <span class="name-text"><%= row.name %></span>
-          <span class="arrow">›</span>
-        </a>
-      </li>
-      <% number += 1 %>
-    <% } %>
-  </ul>
-  <div class="page-nav">
-    <a class="common-btn" href="/">← 各サイトの一覧に戻る</a>
-    <a class="common-btn" href="/manga/create">新規登録</a>
-    <% if (typeof sindan !== 'undefined') { %>
-      <a class="common-btn" href="/sindan/<%= sindan %>">哲学者診断をする</a>
-    <% } %>
+  <div class="wrap">
+    <div class="hero">
+      <span class="eyebrow">Characters</span>
+      <h1>哲学者一覧</h1>
+      <div class="bar"></div>
+      <p class="lead">漫画「ニーチェが京都にやってきて17歳の私に哲学のことを教えてくれた。」の登場人物一覧です。カードを選ぶと詳細を見られます。</p>
+    </div>
+
+    <ul class="name-list">
+      <% let number = 0 %>
+      <% for( let row of data ) { %>
+        <li>
+          <a class="name-card" href="/manga/<%= number %>">
+            <span class="num"><%= String(number + 1).padStart(2, "0") %></span>
+            <span class="name-text"><%= row.name %></span>
+            <span class="cta">詳細を見る<span class="arrow">&rsaquo;</span></span>
+          </a>
+        </li>
+        <% number += 1 %>
+      <% } %>
+    </ul>
+
+    <div class="page-nav">
+      <a class="common-btn" href="/">← 各サイトの一覧に戻る</a>
+      <a class="common-btn" href="/manga/create">新規登録</a>
+      <% if (typeof sindan !== 'undefined') { %>
+        <a class="common-btn" href="/sindan/<%= sindan %>">哲学者診断をする</a>
+      <% } %>
+    </div>
   </div>
-
-
 </body>
 </html>
