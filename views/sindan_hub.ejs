@@ -15,6 +15,13 @@
     .card h2 { margin: 0 0 6px; font-size: 22px; }
     .card p { margin: 0; opacity: .92; font-size: 14px; }
     .back { display: inline-block; margin-top: 24px; color: #555; }
+    .site-nav { margin-top: 32px; }
+    .site-nav h3 { text-align: center; font-size: 16px; color: #555; margin-bottom: 12px; }
+    .nav-btns { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+    .nav-btn { display: inline-block; text-decoration: none; padding: 10px 20px; border-radius: 8px;
+               border: 1px solid #555; background: #fff; color: #555; font-size: 14px;
+               transition: all .2s ease; }
+    .nav-btn:hover { background: #555; color: #fff; }
   </style>
 </head>
 <body>
@@ -29,7 +36,15 @@
         </a>
       <% } %>
     </div>
-    <a class="back" href="/manga">← 哲学者一覧へ</a>
+    <div class="site-nav">
+      <h3>各サイトの一覧ページへ</h3>
+      <div class="nav-btns">
+        <a class="nav-btn" href="/">← 各サイトの一覧に戻る</a>
+        <a class="nav-btn" href="/manga">哲学者一覧</a>
+        <a class="nav-btn" href="/kyouiku">教育学者一覧</a>
+        <a class="nav-btn" href="/bisyoujo">美少女一覧</a>
+      </div>
+    </div>
   </div>
 </body>
 </html>

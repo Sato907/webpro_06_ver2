@@ -18,7 +18,11 @@
     input[type=radio] { margin-right: 8px; }
     .submit { display: block; width: 100%; padding: 14px; font-size: 17px; color: #fff; border: none;
               border-radius: 10px; background: <%= cfg.color %>; cursor: pointer; margin-top: 8px; }
-    .back { display: inline-block; margin-top: 18px; color: #555; }
+    .nav-btns { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+    .nav-btn { display: inline-block; text-decoration: none; padding: 10px 20px; border-radius: 8px;
+               border: 1px solid <%= cfg.color %>; background: #fff; color: <%= cfg.color %>;
+               font-size: 14px; transition: all .2s ease; }
+    .nav-btn:hover { background: <%= cfg.color %>; color: #fff; }
   </style>
 </head>
 <body>
@@ -41,8 +45,10 @@
       <button class="submit" type="submit">診断する</button>
     </form>
 
-    <a class="back" href="<%= cfg.basePath %>">← 一覧ページへ戻る</a>
-    <a class="back" href="/sindan" style="margin-left:16px;">診断トップへ</a>
+    <div class="nav-btns">
+      <a class="nav-btn" href="<%= cfg.basePath %>">← 一覧ページへ戻る</a>
+      <a class="nav-btn" href="/sindan">診断トップへ</a>
+    </div>
   </div>
 </body>
 </html>
