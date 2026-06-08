@@ -8,16 +8,18 @@
 </head>
 <body>
   <h2>漫画「ニーチェが京都にやってきて17歳の私に哲学のことを教えてくれた。」の登場人物一覧</h2>
-  <table>
-    <tr><th>登場人物</th></tr>
-      <% let number = 0 %>
-      <% for( let row of data ) { %>
-        <!-- <tr><td><%= row.id %></td>
-        <td><%= row.code %></td> -->
-        <td><a href="/manga/<%= number %>"><%= row.name %></a></td></tr>
-         <% number += 1 %> 
-      <% } %>
-  </table>
+  <ul class="name-list">
+    <% let number = 0 %>
+    <% for( let row of data ) { %>
+      <li>
+        <a class="name-card" href="/manga/<%= number %>">
+          <span class="name-text"><%= row.name %></span>
+          <span class="arrow">›</span>
+        </a>
+      </li>
+      <% number += 1 %>
+    <% } %>
+  </ul>
   <div class="page-nav">
     <a class="common-btn" href="/">← 各サイトの一覧に戻る</a>
     <a class="common-btn" href="/manga/create">新規登録</a>

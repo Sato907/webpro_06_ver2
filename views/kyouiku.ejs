@@ -8,16 +8,18 @@
 </head>
 <body>
   <h2>教育原理で登場する主要な教育思想家一覧</h2>
-  <table>
-    <tr><th>教育思想家</th></tr>
-      <% let number = 0 %>
-      <% for( let row of data ) { %>
-        <!-- <tr><td><%= row.id %></td>
-        <td><%= row.code %></td> -->
-        <td><a href="/kyouiku/<%= number %>"><%= row.name %></a></td></tr>
-         <% number += 1 %> 
-      <% } %>
-  </table>
+  <ul class="name-list">
+    <% let number = 0 %>
+    <% for( let row of data ) { %>
+      <li>
+        <a class="name-card" href="/kyouiku/<%= number %>">
+          <span class="name-text"><%= row.name %></span>
+          <span class="arrow">›</span>
+        </a>
+      </li>
+      <% number += 1 %>
+    <% } %>
+  </ul>
   <div class="page-nav">
     <a class="common-btn" href="/">← 各サイトの一覧に戻る</a>
     <a class="common-btn" href="/kyouiku/create">新規登録</a>

@@ -8,16 +8,18 @@
 </head>
 <body>
   <h2>佐藤の推しキャラ(抜粋)の一覧</h2>
-  <table>
-    <tr><th>キャラクター</th></tr>
-      <% let number = 0 %>
-      <% for( let row of data ) { %>
-        <!-- <tr><td><%= row.id %></td>
-        <td><%= row.code %></td> -->
-        <td><a href="/bisyoujo/<%= number %>"><%= row.name %></a></td></tr>
-         <% number += 1 %> 
-      <% } %>
-  </table>
+  <ul class="name-list">
+    <% let number = 0 %>
+    <% for( let row of data ) { %>
+      <li>
+        <a class="name-card" href="/bisyoujo/<%= number %>">
+          <span class="name-text"><%= row.name %></span>
+          <span class="arrow">›</span>
+        </a>
+      </li>
+      <% number += 1 %>
+    <% } %>
+  </ul>
   <div class="page-nav">
     <a class="common-btn" href="/">← 各サイトの一覧に戻る</a>
     <a class="common-btn" href="/bisyoujo/create">新規登録</a>
