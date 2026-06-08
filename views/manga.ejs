@@ -18,10 +18,13 @@
          <% number += 1 %> 
       <% } %>
   </table>
-  <a href="/manga/create">新規登録</a>
-  <% if (typeof sindan !== 'undefined') { %>
-    <a href="/sindan/<%= sindan %>">哲学者診断をする</a>
-  <% } %>
+  <div class="page-nav">
+    <a class="common-btn" href="/">← 各サイトの一覧に戻る</a>
+    <a class="common-btn" href="/manga/create">新規登録</a>
+    <% if (typeof sindan !== 'undefined') { %>
+      <a class="common-btn" href="/sindan/<%= sindan %>">哲学者診断をする</a>
+    <% } %>
+  </div>
 
 
 </body>

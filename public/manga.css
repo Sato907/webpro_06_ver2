@@ -136,3 +136,22 @@ form {
 .submit-container .common-btn:hover {
     background-color: #222;
 }
+
+/* 一覧ページ下部のナビボタン */
+.page-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+/* リンクをボタン風に見せる調整 */
+a.common-btn {
+    text-decoration: none;
+    color: #555;
+}
+
+a.common-btn:hover {
+    color: #fff;
+}
