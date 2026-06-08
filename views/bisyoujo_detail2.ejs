@@ -48,11 +48,11 @@
     <tr><td>所持しているポスター</td><td><%= data.posuta %></td></tr>
     <tr><td>所持しているフィギュア</td><td><%= data.fig %></td></tr>
 </table>
-  <a href="/bisyoujo">一覧に戻る</a>
-  <a href="/bisyoujo/delete/<%= name %>" onclick="return confirm('本当にこの美少女を削除してもよろしいですか？');">
-    削除
-  </a>
-  <a href="/bisyoujo/edit/<%= name %>">編集画面へ</a>
-  <a href="/sindan/bisyoujo">推し美少女診断</a>
+  <div class="page-nav">
+    <a class="common-btn" href="/bisyoujo">一覧に戻る</a>
+    <a class="common-btn" href="/bisyoujo/edit/<%= name %>">編集画面へ</a>
+    <a class="common-btn" href="/sindan/bisyoujo">推し美少女診断</a>
+    <a class="common-btn danger" href="/bisyoujo/delete/<%= name %>" onclick="return confirm('本当にこの美少女を削除してもよろしいですか？');">削除</a>
+  </div>
 </body>
 </html>

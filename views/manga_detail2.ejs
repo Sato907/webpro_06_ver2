@@ -44,11 +44,11 @@
     <% } %>
 
 </div>
-  <a href="/manga">一覧に戻る</a>
-  <a href="/manga/delete/<%= name %>" onclick="return confirm('本当にこの哲学者を削除してもよろしいですか？');">
-    削除
-  </a>
-  <a href="/manga/edit/<%= name %>">編集画面へ</a>
-  <a href="/sindan/manga">哲学者診断</a>
+  <div class="page-nav">
+    <a class="common-btn" href="/manga">一覧に戻る</a>
+    <a class="common-btn" href="/manga/edit/<%= name %>">編集画面へ</a>
+    <a class="common-btn" href="/sindan/manga">哲学者診断</a>
+    <a class="common-btn danger" href="/manga/delete/<%= name %>" onclick="return confirm('本当にこの哲学者を削除してもよろしいですか？');">削除</a>
+  </div>
 </body>
 </html>

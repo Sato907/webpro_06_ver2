@@ -118,3 +118,13 @@ a.common-btn {
 a.common-btn:hover {
     color: #fff;
 }
+
+/* 削除ボタン（赤系の差し色） */
+a.common-btn.danger {
+    border-color: #c0392b;
+    color: #c0392b;
+}
+a.common-btn.danger:hover {
+    background-color: #c0392b;
+    color: #fff;
+}

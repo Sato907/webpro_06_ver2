@@ -34,11 +34,11 @@
     <tr><td>日本の教育への影響</td><td><%= data.study %></td></tr>
     <tr><td>関連するキーワード</td><td><%= data.key %></td></tr>
 </table>
-  <a href="/kyouiku">一覧に戻る</a>
-  <a href="/kyouiku/delete/<%= name %>" onclick="return confirm('本当にこの教育思想家を削除してもよろしいですか？');">
-    削除
-  </a>
-  <a href="/kyouiku/edit/<%= name %>">編集画面へ</a>
-  <a href="/sindan/kyouiku">教育観診断</a>
+  <div class="page-nav">
+    <a class="common-btn" href="/kyouiku">一覧に戻る</a>
+    <a class="common-btn" href="/kyouiku/edit/<%= name %>">編集画面へ</a>
+    <a class="common-btn" href="/sindan/kyouiku">教育観診断</a>
+    <a class="common-btn danger" href="/kyouiku/delete/<%= name %>" onclick="return confirm('本当にこの教育思想家を削除してもよろしいですか？');">削除</a>
+  </div>
 </body>
 </html>
