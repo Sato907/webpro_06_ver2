@@ -35,6 +35,26 @@ function uploadFor(category) {
   }).single("image");
 }
 
+// 新規登録用：配列末尾＝これから追加する番号として <length>.jpg で保存する
+function uploadNew(category, getList) {
+  const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      const dir = `public/images/${category}`;
+      fs.mkdirSync(dir, { recursive: true });
+      cb(null, dir);
+    },
+    filename: (req, file, cb) => {
+      cb(null, getList().length + ".jpg");   // 追加直前の要素数 = 新規の番号
+    },
+  });
+  return multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+      cb(null, file.mimetype === "image/jpeg");
+    },
+  }).single("image");
+}
+
 
 
 
@@ -287,7 +307,7 @@ app.get("/manga/delete/:number", (req, res) => {
 
 
 // Create 新規登録
-app.post("/manga", (req, res) => {
+app.post("/manga", uploadNew("manga", () => nietzsche), (req, res) => {
   // フォームから送られてきたデータを取り出す
   // ※ thoughts は HTML側で name="thoughts[0][title]" としたことで、
   // 自動的に [ {title: '...', description: '...'}, ... ] という配列になる
@@ -390,7 +410,7 @@ app.get("/kyouiku/delete/:number", (req, res) => {
 
 
 // Create 新規登録
-app.post("/kyouiku", (req, res) => {
+app.post("/kyouiku", uploadNew("kyouiku", () => kyouiku), (req, res) => {
   
   const name = req.body.name; 
 
@@ -480,7 +500,7 @@ app.get("/bisyoujo/delete/:number", (req, res) => {
 
 
 // Create 新規登録
-app.post("/bisyoujo", (req, res) => {
+app.post("/bisyoujo", uploadNew("bisyoujo", () => bisyoujo), (req, res) => {
   
   const name = req.body.name; 
 

@@ -6,8 +6,13 @@
     <link rel="stylesheet" href="/bisyoujo.css">
 </head>
 <body>
-    <form action="/bisyoujo" method="POST">
-        
+    <form action="/bisyoujo" method="POST" enctype="multipart/form-data">
+
+            <div class="form-group">
+                <label for="image">画像(jpg):</label>
+                <input type="file" id="image" name="image" accept="image/jpeg">
+            </div>
+
             <div class="form-group">
                 <label for="name">人物名:</label>
                 <input type="text" id="name" name="name" required>

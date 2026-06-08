@@ -6,8 +6,13 @@
     <link rel="stylesheet" href="/manga.css">
 </head>
 <body>
-    <form action="/manga" method="POST">
-        
+    <form action="/manga" method="POST" enctype="multipart/form-data">
+
+            <div class="form-group">
+                <label for="image">画像(jpg):</label>
+                <input type="file" id="image" name="image" accept="image/jpeg">
+            </div>
+
             <div class="form-group">
                 <label for="name">登場人物名:</label>
                 <input type="text" id="name" name="name" required>
